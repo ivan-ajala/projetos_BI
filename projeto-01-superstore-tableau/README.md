@@ -19,6 +19,14 @@ O objetivo do projeto é demonstrar, em nível profissional, competências de **
 
 O projeto foi organizado em 5 abas principais:
 
+## 📷 Preview
+
+![Dashboard Overview](./images/dash_screen_01.png)
+![Análise Regional](./images/dash_screen_02.png)
+![Categorias](./images/dash_screen_03.png)
+![Clientes](./images/dash_screen_04.png)
+![Descontos & Lucro](./images/dash_screen_05.png)
+
 ### 1. Overview
 Visão executiva com foco em resumo de performance:
 
@@ -200,6 +208,13 @@ Esses pontos podem ser usados em discussões sobre **comportamento comercial, in
 2. Abra no **Tableau Desktop**.
 3. Certifique-se de que a fonte de dados esteja apontando para o arquivo `Sample_Superstore_Orders` na pasta `/data`, se necessário.
 4. Navegue pelas abas: **Overview, Regional, Categorias, Clientes, Desc. & Lucro**.
+
+---
+
+## 🔗 Dashboard Interativo
+
+Acesse o dashboard completo e interativo no Tableau Public:  
+👉 [Superstore Sales & Profitability Dashboard](https://public.tableau.com/app/profile/ivan.ajala/viz/superstore_dashboard_17804269822950/DB-Overview?publish=yes)
 
 ---
 

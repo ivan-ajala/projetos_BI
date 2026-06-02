@@ -10,7 +10,7 @@ Esta coleção demonstra minha capacidade de desenvolver soluções completas de
 
 | # | Título do Projeto | Habilidades Técnicas | Foco de Negócio | Link |
 | :-: | :--- | :--- | :--- | :--- |
-| **01** | *[Em Desenvolvimento...]* **Pipeline ETL Completo - Análise de Vendas** | Python, Pandas, SQL, Tableau, ETL | Performance Comercial, Margem de Lucro, Análise Regional, KPIs | [Ver Projeto](./projeto-1-etl-vendas) |
+| **01** | Superstore Sales & Profitability Dashboard (Tableau) | Tableau, LOD Expressions, Table Calculations, KPI Design | Rentabilidade, Política de Descontos, Comportamento Comercial | [Ver Projeto](./projeto-01-superstore-tableau/README.md) |
 | **02** | *[Em Desenvolvimento...]* | | | |
 | **03** | *[Em Desenvolvimento...]* | | | |
 

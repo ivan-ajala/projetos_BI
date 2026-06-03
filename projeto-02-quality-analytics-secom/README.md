@@ -140,11 +140,13 @@ model = RandomForestClassifier(n_estimators=100, class_weight='balanced')
 
 ## 📌 Principais Insights de Negócio
 
-1. **Yield e concentração de falhas no tempo**
-   O dataset apresenta taxa de FAIL em torno de **6–7%**, típica de processos
-   industriais de alta complexidade. A análise temporal revela **clusters de falha**,
-   indicando que problemas de processo tendem a se manifestar em rajadas,
-   e não de forma aleatória – o que reforça a necessidade de monitoramento contínuo (SPC).
+1. **Alta concentração de falhas (FAIL) no recorte analisado**  
+   O dataset apresenta uma proporção de aproximadamente **93% FAIL / 7% PASS**.  
+   Isso sugere que o conjunto disponibilizado não representa toda a produção,
+   mas um recorte orientado a casos problemáticos (situações em que a linha
+   já apresentava instabilidade). Para análise, tratei o problema como
+   classificação binária, porém interpretando essa proporção como um viés
+   de amostragem e não como o yield real da fábrica.
 
 2. **591 sensores, mas poucos realmente importam**
    Após feature selection, os **top 20 sensores** respondem pela maior parte
@@ -163,11 +165,12 @@ model = RandomForestClassifier(n_estimators=100, class_weight='balanced')
    da unidade ser reprovada no teste final – o que valida a lógica de SPC
    como ferramenta de **ação preventiva**, e não apenas reativa.
 
-5. **Dados desbalanceados refletem o mundo real**
-   A proporção ~93% PASS / ~7% FAIL exige atenção na modelagem (uso de
-   `class_weight='balanced'`, métricas de Recall e F1) e também na
-   interpretação dos dashboards: um processo com 93% de yield pode
-   esconder padrões críticos se analisado apenas pela média.
+5. **Dados desbalanceados e enviesados para falhas**  
+   A proporção ~93% FAIL / ~7% PASS indica um conjunto fortemente enviesado
+   para situações de falha, típico de datasets construídos para estudo de
+   problemas de qualidade. Isso exige cuidado na modelagem (interpretação das
+   métricas, escolha de baseline) e na narrativa: o dataset não reflete o
+   yield global da operação, mas um subconjunto de interesse analítico.
 
 ---
 

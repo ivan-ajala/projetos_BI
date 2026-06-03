@@ -15,3 +15,10 @@ Desenvolvi um pipeline de dados e um dashboard de qualidade para uma linha de ma
 - Uso de SPC (pseudo control charts) para monitoramento de processo.
 - Estruturação de dashboard em abas (Overview, Sensores Críticos, SPC, Root Cause).
 - Conexão com rotina de qualidade: monitorar, investigar, agir.
+
+## Importante
+
+o dataset representa um recorte focado em casos de falha (FAIL),
+não o universo completo da produção. A análise e os dashboards foram construídos
+considerando esse viés, com foco em diagnóstico e estudo de causas, e não em
+medir o yield global da planta.

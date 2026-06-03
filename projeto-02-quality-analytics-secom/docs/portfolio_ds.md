@@ -14,3 +14,9 @@ Modelei o problema de qualidade em manufatura como uma tarefa de classificação
 - Estratégia de feature selection (ANOVA, correlação, feature importance).
 - Modelo supervisionado com dado desbalanceado (class_weight, métricas focadas em FAIL).
 - Uso do modelo mais como ferramenta de explicação/priorização do que só previsão.
+
+## Notas:
+
+O dataset é fortemente enviesado para casos de FAIL (~93%), o que sugere um recorte
+orientado a falhas em vez de um espelho completo da produção. Esse viés foi levado
+em conta na interpretação dos resultados e na construção dos insights de processo.

@@ -216,3 +216,6 @@ dist/
 
 # Backups locais de projetos (não versionar)
 projeto-02-quality-analytics-secom-backup/
+
+# Arquivos temporários do R
+*.Rhistory

@@ -1,0 +1,23 @@
+# Sensores positivamente correlacionados com FAIL (valores altos = risco)
+Sensor_060
+Sensor_104
+Sensor_511
+Sensor_349
+Sensor_432
+Sensor_435
+Sensor_431
+Sensor_022
+Sensor_436
+Sensor_437
+
+# Sensores negativamente correlacionados com FAIL (valores baixos = risco)
+Sensor_029
+Sensor_317
+Sensor_126
+Sensor_027
+Sensor_181
+Sensor_123
+Sensor_453
+Sensor_128
+Sensor_023
+Sensor_015

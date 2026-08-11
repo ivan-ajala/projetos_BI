@@ -85,7 +85,7 @@ def load_sensor_data() -> pd.DataFrame:
 def load_labels() -> pd.DataFrame:
     """
     Carrega secom_labels.data – resultado da inspeção e timestamp.
-    Colunas originais: Label (-1 = FAIL, 1 = PASS) e Timestamp.
+    Colunas originais: Label (-1 = PASS, 1 = FAIL) e Timestamp.
 
     Returns:
         pd.DataFrame com colunas: Label, Timestamp, Result.
@@ -107,12 +107,12 @@ def load_labels() -> pd.DataFrame:
     )
 
     # Cria coluna legível: PASS / FAIL
-    df_labels["Result"] = df_labels["Label"].map({1: "PASS", -1: "FAIL"})
+    df_labels["Result"] = df_labels["Label"].map({1: "FAIL", -1: "PASS"})
 
     logger.info(
         f"secom_labels.data carregado: {df_labels.shape[0]} linhas | "
-        f"PASS: {(df_labels['Result'] == 'PASS').sum()} | "
-        f"FAIL: {(df_labels['Result'] == 'FAIL').sum()}"
+        f"FAIL: {(df_labels['Result'] == 'FAIL').sum()} | "
+        f"PASS: {(df_labels['Result'] == 'PASS').sum()}"
     )
     return df_labels
 

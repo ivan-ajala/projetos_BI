@@ -2,205 +2,564 @@
 
 ## Visão Geral
 
-Projeto de **Data Science aplicado à manufatura**, com foco em:
+Projeto de **Data Science aplicado à manufatura**, com foco na análise de dados de
+sensores industriais e na detecção de unidades associadas à ocorrência de falhas.
 
-- Tratamento de dados de sensores industriais
-- Análise exploratória e seleção de features
-- Modelo preditivo simples para detecção de falhas (classe minoritária)
-- Interpretação de resultados para apoio à decisão em qualidade
+O projeto utiliza o dataset **SECOM**, disponibilizado pelo UCI Machine Learning
+Repository, contendo medições de sensores de um processo de fabricação de
+semicondutores e um rótulo final de qualidade.
 
-Dataset utilizado: **SECOM (UCI Machine Learning Repository)** – medições de sensores
-em uma linha de fabricação de semicondutores, com rótulo de qualidade final
-(PASS ou FAIL).
+As principais etapas foram:
+
+- extração e consolidação dos dados;
+- tratamento de valores ausentes;
+- correção do mapeamento dos rótulos;
+- análise exploratória;
+- seleção de variáveis;
+- treinamento de um modelo Random Forest;
+- avaliação com métricas adequadas ao desbalanceamento;
+- análise do trade-off entre recall e falsos positivos;
+- interpretação das variáveis mais relevantes;
+- comunicação dos resultados em um dashboard interativo.
 
 ---
 
-## Contexto do Dataset e Correção de Labels
+## Contexto do Dataset
 
-- Cada linha representa uma unidade produzida:
-  - 591 atributos (sensores de processo)
-  - 1 rótulo de qualidade (coluna `Label`)
-- A documentação oficial define:
-  - `Label = -1` → PASS
-  - `Label =  1` → FAIL
+Cada linha do dataset representa uma unidade produzida e contém:
 
-No projeto:
+- medições de sensores de processo;
+- rótulo original de qualidade;
+- timestamp;
+- identificador da unidade;
+- resultado final derivado.
 
-- Corrigi explicitamente o mapeamento para:
-  - `Result`: `PASS` / `FAIL`
-  - `Target_FAIL`: binário (`1` = FAIL, `0` = PASS)
+O rótulo original foi interpretado da seguinte maneira:
 
-Distribuição:
+- `Label = -1` → `PASS`;
+- `Label = 1` → `FAIL`.
 
-- Aproximadamente **93% PASS / 7% FAIL**
-- FAIL é a **classe minoritária**, o que:
-  - reflete um processo industrial estável
-  - exige cuidado com métricas e com a interpretação dos modelos
+A partir desse mapeamento, foram criadas as variáveis:
+
+- `Result`: classificação categórica com os valores `PASS` e `FAIL`;
+- `Target_FAIL`: variável binária, em que `1` representa FAIL e `0` representa
+  PASS.
+
+A distribuição observada foi aproximadamente:
+
+- **93% PASS**;
+- **7% FAIL**.
+
+Esse desbalanceamento torna inadequada uma avaliação baseada somente em acurácia.
+O foco da modelagem foi a capacidade de identificar a classe minoritária FAIL.
+
+---
+
+## Objetivos da Análise
+
+Os objetivos principais foram:
+
+- compreender a estrutura dos dados de sensores;
+- identificar problemas de qualidade e valores ausentes;
+- avaliar diferenças entre unidades PASS e FAIL;
+- selecionar sensores com maior sinal estatístico;
+- treinar um modelo inicial de classificação;
+- analisar o desempenho na identificação de FAIL;
+- avaliar diferentes thresholds de classificação;
+- priorizar sensores para investigação posterior;
+- comunicar os resultados de maneira interpretável.
+
+O objetivo não foi construir um modelo pronto para produção, mas desenvolver uma
+análise reprodutível e interpretável para apoiar decisões de qualidade.
 
 ---
 
 ## Pipeline de Data Science
 
-### 1. Extração e Pré-processamento
+### 1. Extração e Consolidação
 
-Etapas principais:
+Os dados foram lidos a partir dos arquivos brutos:
 
-1. Leitura dos dados brutos:
-   - `secom.data` (sensores)
-   - `secom_labels.data` (labels e timestamps)
-2. Criação de `Unit_ID`
-3. Conversão do rótulo original:
-   - `Label = -1` → `Result = PASS`
-   - `Label =  1` → `Result = FAIL`
-4. Criação de `Target_FAIL` (1 = FAIL, 0 = PASS)
+- `secom.data`;
+- `secom_labels.data`.
 
-Resultado intermediário:
+As etapas incluíram:
 
-- `data/processed/secom_raw_combined.csv`
+- leitura das medições dos sensores;
+- leitura dos rótulos e timestamps;
+- criação de `Unit_ID`;
+- associação das observações aos respectivos rótulos;
+- correção do mapeamento entre `Label`, `PASS` e `FAIL`;
+- criação de `Target_FAIL`;
+- exportação da base combinada.
 
-### 2. Tratamento de Missing Values e Seleção Inicial de Features
+Arquivo intermediário:
 
-- Análise de missing por sensor:
-  - muitos sensores com algum grau de NaN
-  - alguns com >50% de valores faltantes
-- Estratégia adotada:
-  - Remover sensores com **>50% de NaN**
-  - Imputar NaNs remanescentes pela **mediana** de cada coluna
-- Justificativa:
-  - Remove variáveis pouco confiáveis (muitos NaNs)
-  - Mantém o máximo possível de sinal nos sensores restantes
-
-Resultado:
-
-- Base final (`secom_clean.csv`):
-  - 1.567 linhas
-  - 566 colunas (562 sensores + 4 colunas de controle)
-  - Sem valores faltantes nos sensores
+```text
+data/processed/secom_raw_combined.csv
+```
 
 ---
 
-## Análise Exploratório (EDA)
+### 2. Tratamento de Valores Ausentes
 
-### Distribuição da Variável Alvo
+A base original contém valores ausentes em diversos sensores.
 
-- `Result`:
-  - ~93% PASS
-  - ~7% FAIL
-- `Target_FAIL`:
-  - ~7% com valor 1
-- Problema configurado como:
-  - classificação binária com classe minoritária (FAIL)
-  - foco em **detecção de falhas** e não apenas em acurácia global
+A estratégia adotada foi:
+
+- remover sensores com mais de **50% de valores ausentes**;
+- imputar os valores ausentes remanescentes pela **mediana** da respectiva
+  coluna;
+- manter as colunas de controle e identificação;
+- gerar uma base limpa para as análises.
+
+A base final contém aproximadamente:
+
+- **1.567 linhas**;
+- **566 colunas**;
+- **562 sensores**;
+- **4 colunas de controle**;
+- ausência de valores faltantes nos sensores após o tratamento.
+
+Arquivo principal:
+
+```text
+data/processed/secom_clean.csv
+```
+
+O tratamento foi escolhido como uma estratégia inicial de preparação dos dados.
+Em uma aplicação operacional, seria necessário avaliar também o mecanismo dos
+valores ausentes e seu possível significado no processo.
+
+---
+
+## Análise Exploratória
+
+### Distribuição da Variável-Alvo
+
+A variável `Result` apresenta:
+
+- aproximadamente 93% de unidades PASS;
+- aproximadamente 7% de unidades FAIL.
+
+A variável `Target_FAIL` transforma o problema em uma classificação binária:
+
+- `0` = PASS;
+- `1` = FAIL.
+
+O desbalanceamento foi considerado durante a modelagem e na escolha das métricas.
+
+---
 
 ### Estatísticas dos Sensores
 
-- `describe()` aplicado aos sensores:
-  - análise de média, desvio-padrão, amplitude
-- Seleção de sensores com:
-  - baixa variabilidade (potencialmente pouco informativos)
-  - alta variabilidade (candidatos a variáveis relevantes)
+Foram calculadas estatísticas descritivas dos sensores, incluindo:
 
-### Correlação com FAIL
+- média;
+- desvio-padrão;
+- valores mínimo e máximo;
+- amplitude;
+- distribuição por grupo de resultado.
 
-- Cálculo de correlação de Pearson entre sensores e `Target_FAIL`
-- Identificação dos sensores mais correlacionados com falha:
-  - ex.: **Sensor_029, Sensor_317, Sensor_126**, entre outros
-
-Observações:
-
-- Sensores com correlação positiva com `Target_FAIL` tendem a ter
-  valores mais altos em unidades FAIL
-- Boxplots PASS vs FAIL mostraram:
-  - distribuições deslocadas em FAIL
-  - maior concentração de outliers em casos FAIL
-
-Insight central:
-
-> Esses sensores funcionam como **indicadores de risco**:  
-> quando suas leituras fogem do padrão típico das unidades PASS,
-> a probabilidade de FAIL aumenta.
+A análise exploratória também avaliou sensores com diferentes níveis de
+variabilidade para identificar variáveis potencialmente informativas ou pouco
+discriminativas.
 
 ---
 
-## Seleção de Features e Modelo Preditivo
+### Correlação com `Target_FAIL`
 
-O foco principal do modelo não foi bater recordes de benchmark, mas:
+Foi calculada a correlação de Pearson entre os sensores e `Target_FAIL`.
 
-- Ranqueamento de sensores importantes
-- Apoio à interpretação de quais variáveis do processo mais influenciam o risco de falha
+Essa análise permitiu identificar:
 
-### Seleção de Features
+- sensores com associação positiva com FAIL;
+- sensores com associação negativa com FAIL;
+- diferenças de direção entre as variáveis;
+- candidatos para investigação posterior.
 
-- **ANOVA F-score (f_classif)**:
-  - usada para ranquear sensores em termos de capacidade de separar PASS e FAIL
-  - seleção dos top N sensores para entrada no modelo
-- Avaliação da consistência:
-  - comparação entre ranking por F-score e ranking por correlação com `Target_FAIL`
-  - alinhamento com insights da EDA
+Entre os sensores com associação negativa aparecem, por exemplo:
 
-### Modelo Preditivo
+```text
+Sensor_029
+Sensor_317
+Sensor_126
+```
 
-- **Random Forest Classifier**, com:
-  - `class_weight='balanced'` para tratar desbalanceamento
-  - validação cruzada estratificada (ex.: StratifiedKFold)
-- Métricas monitoradas:
-  - Recall de FAIL (classe minoritária)
-  - F1-score
-  - ROC-AUC
-  - Matriz de confusão estratificada por classe
+Outros sensores apresentam associação positiva com `Target_FAIL`.
 
-Interpretação:
+A direção da correlação deve ser preservada na interpretação. Uma correlação
+negativa não significa necessariamente que o sensor seja benéfico, assim como uma
+correlação positiva não prova que o sensor cause a falha.
 
-- Mesmo um modelo simples já permite:
-  - identificar sensores com alta importância (feature importance)
-  - avaliar trade-off entre detectar FAIL e gerar falsos positivos
-- Resultados conectados com o negócio:
-  - melhor entender quais sensores priorizar no monitoramento contínuo
-  - apoiar decisões de manutenção, calibração e ajustes de processo
+---
+
+### Visualizações Exploratórias
+
+Foram produzidos outputs como:
+
+- distribuição de PASS e FAIL;
+- matriz de correlação;
+- boxplots comparando PASS e FAIL;
+- estatísticas descritivas;
+- médias por grupo;
+- rankings de correlação;
+- rankings de variabilidade.
+
+Os resultados da análise exploratória estão em:
+
+```text
+data/processed/eda_outputs/
+```
+
+---
+
+## Seleção de Features
+
+A seleção inicial de variáveis utilizou o teste estatístico ANOVA por meio de:
+
+```python
+SelectKBest
+f_classif
+```
+
+O objetivo foi ranquear os sensores segundo sua capacidade estatística de
+diferenciar as classes PASS e FAIL.
+
+Foram selecionados os **40 principais sensores** para a etapa de modelagem.
+
+Essa seleção reduz a dimensionalidade e permite:
+
+- concentrar o modelo nas variáveis com maior sinal estatístico;
+- reduzir ruído;
+- facilitar a interpretação;
+- comparar o ranking estatístico com a importância gerada pelo modelo.
+
+A seleção por ANOVA não significa que as variáveis escolhidas sejam causas das
+falhas. Ela representa uma forma de priorização estatística.
+
+---
+
+## Modelo Preditivo
+
+Foi utilizado um:
+
+```python
+RandomForestClassifier
+```
+
+A configuração metodológica incluiu:
+
+- seleção dos 40 principais sensores pelo ANOVA F-score;
+- `class_weight={0: 1, 1: 5}`;
+- maior peso relativo para a classe FAIL;
+- validação cruzada estratificada;
+- `StratifiedKFold` com 10 folds;
+- avaliação complementar em uma divisão estratificada de treino e teste.
+
+O Random Forest foi escolhido como modelo inicial porque:
+
+- lida bem com muitas variáveis;
+- captura relações não lineares;
+- é relativamente robusto a diferentes escalas;
+- permite calcular feature importance;
+- oferece uma referência interpretável para o problema.
+
+O modelo deve ser entendido como uma baseline analítica, e não como uma solução
+definitiva para implantação em produção.
+
+---
+
+## Métricas Avaliadas
+
+Devido ao desbalanceamento entre PASS e FAIL, foram analisadas métricas além da
+acurácia global:
+
+- **Recall de FAIL**;
+- **Precision de FAIL**;
+- **F1-score**;
+- **ROC-AUC**;
+- matriz de confusão;
+- curva Precision-Recall;
+- relação entre threshold e falsos positivos.
+
+O recall de FAIL é especialmente importante porque mede a capacidade de detectar
+unidades que realmente pertencem à classe minoritária.
+
+---
+
+## Resultados do Modelo
+
+O modelo apresentou ROC-AUC médio próximo de:
+
+```text
+0,75
+```
+
+Esse resultado indica capacidade discriminativa moderada entre unidades PASS e
+FAIL. Existe sinal estatístico nos dados, mas o desempenho ainda não deve ser
+interpretado como suficiente para uso operacional sem validações adicionais.
+
+No threshold padrão de `0,50`, o recall da classe FAIL permaneceu baixo. Isso
+indica que o ponto de corte padrão é conservador para a identificação da classe
+minoritária.
+
+A análise de thresholds demonstrou que:
+
+- a redução do threshold pode aumentar o recall de FAIL;
+- o aumento do recall tende a produzir mais falsos positivos;
+- a escolha do threshold deve considerar o custo de uma falha não detectada;
+- uma inspeção adicional pode ser aceitável quando o custo de perder uma falha é
+  elevado.
+
+Esse trade-off é uma decisão de negócio e de processo, não apenas uma decisão
+estatística.
+
+---
+
+## Interpretação das Variáveis
+
+Foram comparadas diferentes fontes de evidência:
+
+- correlação com `Target_FAIL`;
+- ANOVA F-score;
+- feature importance do Random Forest.
+
+Quando um sensor aparece com relevância em mais de uma abordagem, ele pode ser
+priorizado para investigação. Essa convergência aumenta a utilidade analítica
+do ranking, mas não transforma a associação em causalidade.
+
+As variáveis selecionadas devem ser interpretadas como:
+
+- sensores com maior sinal estatístico;
+- candidatos a monitoramento;
+- variáveis para investigação de processo;
+- possíveis indicadores de risco.
+
+A confirmação de causa raiz exige conhecimento especializado, experimentos,
+análise do processo e validação em ambiente real.
+
+---
+
+## Análise de Threshold
+
+A análise de threshold foi incluída porque o ponto de corte de 0,50 nem sempre é o
+mais adequado para problemas desbalanceados.
+
+Ao alterar o threshold, modifica-se a relação entre:
+
+- verdadeiros positivos;
+- falsos positivos;
+- falsos negativos;
+- recall;
+- precision.
+
+Em um contexto de qualidade industrial, o threshold deve ser definido de acordo
+com:
+
+- custo de uma unidade FAIL não detectada;
+- custo de uma inspeção adicional;
+- capacidade operacional de investigação;
+- impacto no yield;
+- criticidade do processo;
+- validação com especialistas.
+
+O threshold analisado neste projeto serve como evidência para essa discussão,
+mas não representa uma política operacional definitiva.
 
 ---
 
 ## Principais Lições Técnicas
 
-1. **Importância de validar o mapeamento de labels**  
-   - Label invertido (1 = PASS, -1 = FAIL) muda drasticamente a leitura de negócio
-   - Correção revelou o cenário real: PASS majoritário, FAIL minoritário
+### 1. O mapeamento dos rótulos precisa ser validado
 
-2. **Desbalanceamento não é só um detalhe**  
-   - Em ~93% PASS / 7% FAIL, acurácia sozinha é enganosa
-   - Métricas como recall de FAIL, ROC-AUC e F1 são mais adequadas
+Uma inversão entre PASS e FAIL alteraria completamente a interpretação dos
+resultados e das métricas.
 
-3. **EDA guiando seleção de features**  
-   - Correlação, boxplots e distribuição por classe ajudam a entender
-     antes de plugar o dataset “bruto” em qualquer modelo
+A confirmação do mapeamento foi uma etapa essencial da análise:
 
-4. **Feature importance como alavanca de storytelling**  
-   - Ranking de sensores mais importantes no modelo ajuda a explicar
-     quais partes do processo são mais críticas em linguagem de negócio
+```text
+Label = -1 → PASS
+Label = 1  → FAIL
+```
+
+---
+
+### 2. Acurácia pode ser enganosa em dados desbalanceados
+
+Com aproximadamente 93% de unidades PASS, uma acurácia alta pode esconder um
+desempenho ruim na identificação de FAIL.
+
+Por isso, recall, precision, F1-score, ROC-AUC e Precision-Recall são mais
+informativos para este problema.
+
+---
+
+### 3. A EDA deve preceder a modelagem
+
+A análise exploratória permitiu compreender:
+
+- a distribuição do alvo;
+- os valores ausentes;
+- a variabilidade dos sensores;
+- a direção das associações;
+- as diferenças entre PASS e FAIL.
+
+Essa etapa reduziu o risco de interpretar o modelo sem compreender a estrutura
+dos dados.
+
+---
+
+### 4. Feature importance apoia a interpretação
+
+O ranking de importância do Random Forest ajuda a comunicar quais sensores foram
+mais utilizados pelo modelo na separação das classes.
+
+Entretanto, feature importance não mede causalidade. O ranking deve ser utilizado
+como apoio à priorização e não como prova de que uma variável provoca a falha.
+
+---
+
+### 5. O threshold é parte da decisão analítica
+
+Em problemas de detecção de falhas, o threshold deve ser tratado como uma
+decisão relacionada ao risco e ao custo dos erros de classificação.
+
+O modelo fornece probabilidades e sinais analíticos; a política de decisão
+depende do contexto operacional.
+
+---
+
+## Dashboard como Camada de Comunicação
+
+Os resultados da análise foram organizados em um dashboard desenvolvido em
+**React + Vite**.
+
+O dashboard contém quatro páginas:
+
+1. **Visão Geral**;
+2. **Análise de Sensores**;
+3. **Diagnóstico do Modelo**;
+4. **Dicionário de Dados**.
+
+A aplicação consome os outputs produzidos pelo pipeline analítico e apresenta:
+
+- rankings de sensores;
+- métricas estatísticas;
+- correlações;
+- importâncias do modelo;
+- informações de threshold;
+- explicações metodológicas.
+
+O dashboard funciona como uma camada de comunicação entre a análise técnica e
+os usuários interessados em qualidade, processo e tomada de decisão.
+
+---
+
+## Estrutura Técnica
+
+Os principais scripts estão em:
+
+```text
+src/
+├── 01_extract.py
+├── 02_transform.py
+├── 03_analysis.py
+└── 04_model.py
+```
+
+Também estão disponíveis notebooks exploratórios:
+
+```text
+src/
+├── 01_extract_explore.ipynb
+├── 02_transform_explore.ipynb
+├── 03_analysis.ipynb
+└── 04_model.ipynb
+```
+
+Os outputs da análise ficam em:
+
+```text
+data/processed/eda_outputs/
+data/processed/model_outputs/
+```
 
 ---
 
 ## Ferramentas e Tecnologias
 
-- **Python (Pandas, NumPy)** – ETL, limpeza, EDA
-- **Scikit-learn** – seleção de features, Random Forest, validação cruzada
-- **Matplotlib / Seaborn** – visualização exploratória
-- **Tableau** – visualização de resultados e storytelling
+- **Python**;
+- **Pandas**;
+- **NumPy**;
+- **Scikit-learn**;
+- **Matplotlib**;
+- **Seaborn**;
+- **Jupyter Notebook**;
+- **React**;
+- **Vite**;
+- **Tableau**;
+- **Git**.
 
 ---
 
-## Como Apresento Este Projeto em Entrevistas (DS)
+## Limitações
 
-- Começo explicando o contexto:
-  - dataset SECOM, linha de semicondutores, PASS (~93%) e FAIL (~7%)
-- Destaco a importância da correção de labels e da leitura de desbalanceamento
-- Mostro a pipeline:
-  - tratamento de missing
-  - análise de correlação
-  - seleção de features
-  - modelo simples com foco em recall de FAIL
-- Enfatizo:
-  - sensores críticos como indicadores de risco
-  - conexão entre métricas técnicas e decisões de qualidade
-  - potencial de evolução para modelos mais robustos (ex.: calibrar threshold de decisão,
-    testar outros algoritmos, aplicar técnicas de oversampling, etc.)
+As principais limitações do projeto são:
+
+- o dataset é histórico;
+- o modelo não foi validado em um ambiente produtivo;
+- a ROC-AUC próxima de 0,75 representa desempenho moderado;
+- o recall da classe FAIL no threshold padrão foi baixo;
+- os sensores foram analisados como variáveis associadas, não como causas
+  comprovadas;
+- a seleção de features pode variar conforme a amostra e a metodologia;
+- o threshold ainda precisa ser calibrado para uma finalidade operacional;
+- não foi realizada uma validação formal de estabilidade temporal;
+- o dashboard não deve ser utilizado como único critério de aprovação ou
+  reprovação de unidades.
+
+---
+
+## Próximos Passos
+
+Possíveis extensões da análise:
+
+- calibrar formalmente o threshold;
+- avaliar curvas Precision-Recall em maior profundidade;
+- testar outros modelos de classificação;
+- realizar ajuste de hiperparâmetros;
+- avaliar técnicas de balanceamento;
+- comparar diferentes estratégias de imputação;
+- avaliar estabilidade temporal do modelo;
+- investigar drift dos sensores;
+- validar os sensores com especialistas de processo;
+- implementar monitoramento operacional;
+- desenvolver gráficos de controle estatístico;
+- avaliar modelos explicáveis e técnicas de interpretabilidade;
+- integrar os resultados a uma plataforma corporativa de BI.
+
+---
+
+## Como Apresentar Este Projeto em Entrevistas
+
+A apresentação pode seguir esta estrutura:
+
+1. Apresentar o contexto industrial e o dataset SECOM;
+2. Explicar a distribuição de aproximadamente 93% PASS e 7% FAIL;
+3. Destacar a validação do mapeamento dos rótulos;
+4. Explicar o tratamento de valores ausentes;
+5. Mostrar como a EDA orientou a seleção de sensores;
+6. Apresentar a seleção dos 40 principais sensores;
+7. Explicar o Random Forest e o tratamento do desbalanceamento;
+8. Apresentar o ROC-AUC próximo de 0,75;
+9. Demonstrar o impacto da escolha do threshold;
+10. Reforçar a diferença entre associação estatística e causalidade;
+11. Mostrar como o dashboard comunica os resultados.
+
+Mensagem principal:
+
+> Este projeto demonstra como aplicar técnicas de Data Science a dados de
+> sensores industriais, considerando desbalanceamento de classes, seleção de
+> variáveis, avaliação de thresholds e interpretação dos resultados para apoiar
+> decisões de qualidade.

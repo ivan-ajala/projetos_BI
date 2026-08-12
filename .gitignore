@@ -219,3 +219,7 @@ projeto-02-quality-analytics-secom-backup/
 
 # Arquivos temporários do R
 *.Rhistory
+
+# Previews HTML gerados por visualizadores de Markdown
+**/docs/*.html
+**/README.html

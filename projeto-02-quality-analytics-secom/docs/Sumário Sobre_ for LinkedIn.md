@@ -1,3 +1,0 @@
-### Versão ainda mais curta para LinkedIn / “Sobre”:
-
-“Projeto de analytics e data science aplicado ao SECOM dataset (UCI), voltado à qualidade em manufatura de semicondutores. Construí um pipeline em Python para tratar mais de 500 variáveis de sensores e, a partir de um cenário realista de ~93% PASS / 7% FAIL, identifiquei os sensores mais associados a falhas, conectando uma EDA robusta a um modelo preditivo simples e a um dashboard em Tableau focado em indicadores de risco e SPC.”

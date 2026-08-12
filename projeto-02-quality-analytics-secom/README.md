@@ -1,297 +1,257 @@
-# UCI SECOM Manufacturing Quality Analytics
+# UCI SECOM — Quality Analytics & Predictive Diagnostics
 
-Projeto de análise e modelagem preditiva aplicado ao dataset SECOM da UCI, com foco em detecção de falhas de qualidade em processo industrial.
+Projeto de análise estatística e modelagem preditiva aplicado ao dataset industrial **SECOM (UCI Machine Learning Repository)**, com foco na detecção de falhas de qualidade em processo de manufatura de semicondutores.
 
-O objetivo é identificar padrões em sensores de processo que ajudem a prever a classe **FAIL** e, ao mesmo tempo, gerar uma leitura interpretável para apoiar monitoramento operacional e decisões de qualidade.
-
----
-
-## Visão geral
-
-O projeto segue um pipeline em etapas:
-
-1. **01_explore**  
-   Inspeção inicial da base bruta, entendimento da estrutura, tipos de variáveis e distribuição de classes.
-
-2. **02_transform**  
-   Tratamento da base: remoção de colunas/sensores com excesso de missing, imputação de valores ausentes e geração da base limpa.
-
-3. **03_analysis**  
-   Análise exploratória da base limpa, com foco em:
-   - distribuição PASS vs FAIL;
-   - estatísticas descritivas dos sensores;
-   - correlação entre sensores e classe alvo;
-   - identificação de sensores críticos.
-
-4. **04_model**  
-   Seleção de variáveis e treinamento de modelo preditivo para detectar FAIL, com avaliação por métricas adequadas ao desbalanceamento.
+O projeto combina três camadas de trabalho: **análise exploratória e estatística**, **modelagem preditiva (ciência de dados)** e **um dashboard interativo (Business Intelligence)** para comunicação de resultados e apoio à decisão.
 
 ---
 
-## Problema de negócio
+## Sobre o projeto
 
-Em processos industriais estáveis, a maioria das unidades é aprovada e uma pequena parcela falha. Esse comportamento aparece claramente no SECOM:
+O objetivo central é identificar quais sensores de processo estão mais associados à ocorrência da classe **FAIL**, e usar essa informação para:
 
-- cerca de **93% PASS**
-- cerca de **7% FAIL**
+- Priorizar sensores para investigação e monitoramento;
+- Avaliar a viabilidade de um modelo preditivo de falhas;
+- Traduzir os resultados técnicos em um dashboard executivo, navegável por qualquer stakeholder não técnico.
 
-Isso cria um cenário clássico de desbalanceamento de classes. Nesse contexto:
-
-- **acurácia sozinha engana**;
-- o modelo precisa ser avaliado principalmente por:
-  - **Recall de FAIL**
-  - **Precision de FAIL**
-  - **F1-score**
-  - **ROC-AUC**
-  - **Precision-Recall**
-
-O foco do projeto é detectar falhas reais com o maior aproveitamento possível, mesmo que isso gere alguns falsos positivos.
+Este projeto foi desenvolvido para demonstrar, de forma prática, competências de **Quality Management & Data Analyst**: análise estatística de processo, causa raiz orientada por dados, dashboarding de KPIs, estruturação de dados de não conformidade e comunicação analítica executiva.
 
 ---
 
-## Base de dados
+## O problema de negócio
 
-A base utilizada é uma versão tratada do dataset SECOM, com:
+Em processos industriais estáveis, a grande maioria das unidades produzidas é aprovada, e apenas uma pequena fração falha. O SECOM reflete exatamente esse cenário:
 
-- variáveis de controle:
-  - `Unit_ID`
-  - `Label`
-  - `Timestamp`
-  - `Result`
-- variáveis de processo:
-  - centenas de sensores `Sensor_*`
+- **~93% PASS**
+- **~7% FAIL**
 
-No pipeline final:
+Esse desbalanceamento é crítico para a análise: um modelo que sempre prevê "PASS" atingiria ~93% de acurácia sem detectar nenhuma falha real. Por isso, o projeto prioriza métricas adequadas a cenários desbalanceados:
 
-- sensores com excesso de missing são removidos;
-- valores ausentes remanescentes são imputados;
-- a base limpa é salva em `data/processed/secom_clean.csv`.
+- **Recall de FAIL** (capacidade de detectar falhas reais);
+- **Precision de FAIL**;
+- **F1-score**;
+- **ROC-AUC**;
+- **Curva Precision-Recall**.
 
----
-
-## Estrutura analítica
-
-### 03_analysis
-
-A análise exploratória confirmou dois grupos importantes de sensores em relação à classe FAIL:
-
-#### Grupo com correlação positiva com FAIL
-Valores altos nesses sensores estão associados a maior risco de falha.
-
-Principais exemplos:
-- `Sensor_060`
-- `Sensor_104`
-- `Sensor_511`
-- `Sensor_349`
-- `Sensor_432`
-- `Sensor_435`
-- `Sensor_431`
-- `Sensor_022`
-- `Sensor_436`
-- `Sensor_437`
-
-#### Grupo com correlação negativa com FAIL
-Valores baixos nesses sensores estão associados a maior risco de falha.
-
-Principais exemplos:
-- `Sensor_029`
-- `Sensor_317`
-- `Sensor_126`
-- `Sensor_027`
-- `Sensor_181`
-- `Sensor_123`
-- `Sensor_453`
-- `Sensor_128`
-- `Sensor_023`
-- `Sensor_015`
-
-Essa leitura é importante porque muda a forma de interpretar o processo:
-
-- em alguns sensores, o alerta está na **alta leitura**;
-- em outros, o alerta está na **queda da leitura**.
+O foco de negócio é claro: **detectar o máximo de falhas reais possível**, mesmo aceitando um aumento controlado de falsos positivos — já que, no contexto industrial, o custo de uma falha não detectada tende a ser maior do que o custo de uma inspeção adicional.
 
 ---
 
-## Modelagem
+## Conexão com experiência profissional
 
-### 04_model
+| Competência de Quality Management & Data Analyst | Como foi aplicada neste projeto |
+|---|---|
+| Análise estatística de processos | Correlação sensor–falha, ANOVA F-score, distribuição PASS/FAIL |
+| Controle de indicadores de qualidade | Dashboard com KPIs, rankings e monitoramento de sensores críticos |
+| Root Cause Analysis orientada por dados | Priorização de sensores via consenso entre múltiplas métricas estatísticas |
+| Estruturação de dados de não conformidade | Modelagem da classe FAIL como evento a ser explicado e previsto |
+| Otimização de processos | Identificação de sensores de maior sinal para ação preventiva |
+| Relatórios executivos | Dashboard navegável com linguagem acessível e Dicionário de Dados |
+| Excel/Power BI e dashboarding | Estrutura de BI equivalente construída em React, com lógica de camadas |
+| SQL básico | Estruturação e consulta dos dados processados |
+| Ciência de dados | Seleção de features, Random Forest, validação cruzada, análise de threshold |
 
-A etapa de modelagem segue três ideias centrais:
+---
 
-1. **seleção de variáveis** com ANOVA F-score (`SelectKBest + f_classif`);
-2. **treinamento de Random Forest** como baseline forte e interpretável;
-3. **análise do trade-off** entre recall e precision por threshold.
+## Dataset
 
-### Estratégia de modelagem
+A base utilizada é uma versão tratada do dataset SECOM, contendo:
 
-Foi utilizado:
+**Variáveis de controle:**
+- `Unit_ID`
+- `Label`
+- `Timestamp`
+- `Result`
 
+**Variáveis de processo:**
+- Centenas de sensores (`Sensor_*`)
+
+No pipeline de tratamento:
+- Sensores com excesso de valores ausentes foram removidos;
+- Os valores remanescentes foram imputados;
+- A base limpa foi salva em `data/processed/secom_clean.csv`.
+
+---
+
+## Pipeline analítico
+
+O projeto segue quatro etapas sequenciais:
+
+1. **Extração/Exploração** (`src/01_extract.py`) — inspeção da base bruta, estrutura, tipos de variáveis e distribuição inicial das classes.
+2. **Transformação** (`src/02_transform.py`) — tratamento de missing values, limpeza e geração da base processada.
+3. **Análise Exploratória** (`src/03_analysis.py`) — distribuição PASS/FAIL, estatísticas descritivas, correlação sensor–alvo, identificação de sensores críticos.
+4. **Modelagem** (`src/04_model.py`) — seleção de variáveis, treinamento do modelo preditivo e avaliação por métricas robustas ao desbalanceamento.
+
+Os notebooks equivalentes (`.ipynb`) estão disponíveis na mesma pasta, documentando o processo de forma exploratória e reprodutível.
+
+---
+
+## Sensores críticos identificados
+
+A análise exploratória revelou dois grupos de sensores com comportamento distinto em relação à ocorrência de FAIL.
+
+### Correlação positiva com FAIL
+*(valores altos indicam maior risco de falha)*
+
+`Sensor_060` · `Sensor_104` · `Sensor_511` · `Sensor_349` · `Sensor_432` · `Sensor_435` · `Sensor_431` · `Sensor_022` · `Sensor_436` · `Sensor_437`
+
+### Correlação negativa com FAIL
+*(valores baixos indicam maior risco de falha)*
+
+`Sensor_029` · `Sensor_317` · `Sensor_126` · `Sensor_027` · `Sensor_181` · `Sensor_123` · `Sensor_453` · `Sensor_128` · `Sensor_023` · `Sensor_015`
+
+Essa distinção é operacionalmente relevante: em alguns sensores o alerta deve ser disparado por **elevação** da leitura; em outros, por **queda**.
+
+---
+
+## Metodologia de modelagem
+
+**Seleção de variáveis:**
+- ANOVA F-score (`SelectKBest` + `f_classif`);
+- Seleção dos **top 40 sensores**.
+
+**Modelo:**
 - `RandomForestClassifier`
 - `class_weight={0: 1, 1: 5}`
 - `n_estimators=200`
 - `StratifiedKFold` com 10 folds
-- split estratificado 80/20 para avaliação detalhada
+- Split estratificado 80/20 para avaliação detalhada
 
-### Por que Random Forest?
-
-A escolha foi feita porque o método:
-
-- lida bem com muitas variáveis;
-- captura relações não lineares;
-- tolera colinearidade entre sensores;
-- produz feature importance;
-- funciona bem como baseline robusto.
+**Por que Random Forest:**
+- Lida bem com alto número de variáveis;
+- Captura relações não lineares;
+- Tolera colinearidade entre sensores;
+- Gera feature importance interpretável;
+- Funciona como baseline robusto.
 
 ---
 
-## Seleção de features
+## Resultados
 
-Como há muitos sensores, a seleção de variáveis é necessária para reduzir ruído e custo computacional.
+- **ROC-AUC médio (validação cruzada): ~0,75**
+- Recall de FAIL baixo no threshold padrão (0,50) — indicando corte conservador demais para a classe minoritária
+- A análise de threshold mostrou que reduzir o ponto de corte aumenta significativamente o recall de FAIL, ao custo de mais falsos positivos — um trade-off aceitável neste contexto industrial
 
-Foi usado:
+> O problema não é ausência de sinal nos dados, e sim o ponto de corte utilizado para classificar a falha.
 
-- **ANOVA F-score**
-- seleção dos **top 40 sensores**
-
-O F-score mede a capacidade estatística de um sensor separar PASS de FAIL, sem depender da direção do efeito. Por isso, sensores positivos e negativos podem aparecer entre os mais relevantes.
-
----
-
-## Resultados principais
-
-### Validação cruzada
-
-O modelo apresentou, em média:
-
-- **ROC-AUC ~ 0,75**
-- **Recall de FAIL baixo no threshold padrão**
-- sinal de aprendizado real, mas com corte padrão conservador demais para a classe minoritária
-
-### Threshold de decisão
-
-A análise de thresholds mostrou que:
-
-- `0,50` tende a resultar em recall muito baixo ou zero para FAIL;
-- ao reduzir o threshold, o modelo passa a capturar mais falhas;
-- o custo é o aumento de falsos positivos, o que é aceitável em contexto industrial quando a falha real é mais cara do que a inspeção adicional.
-
-Isso reforça que:
-
-> o problema não é ausência de sinal, mas o ponto de corte usado para classificar FAIL.
+A combinação entre **correlação**, **F-score (ANOVA)** e **feature importance do Random Forest** reforça a consistência dos sensores identificados como críticos, aumentando a confiabilidade da priorização.
 
 ---
 
-## Feature importance
+## Dashboard interativo (Camada de BI)
 
-O ranking de feature importance do Random Forest complementou a EDA:
+O dashboard foi desenvolvido em **React + Vite**, consumindo diretamente os outputs gerados pelo pipeline analítico (`eda_outputs/` e `model_outputs/`). Ele funciona como a camada de comunicação e tomada de decisão do projeto, traduzindo os resultados estatísticos e do modelo em uma navegação acessível para stakeholders não técnicos.
 
-- sensores do grupo positivo aparecem como sinais de risco quando sobem;
-- sensores do grupo negativo aparecem como sinais de risco quando caem;
-- a consistência entre correlação, F-score e feature importance reforça a robustez dos sensores críticos identificados.
+### Como executar o dashboard
 
-Isso é útil para:
+```dash
+cd dashboard/web-app
+npm install
+npm run dev
+```
 
-- priorizar sensores no dashboard;
-- orientar monitoramento de processo;
-- apoiar ações preventivas de qualidade.
+Acesse: `http://localhost:5173/`
 
----
+Para gerar a versão de produção:
 
-## Outputs gerados
-
-Os principais artefatos gerados pelo projeto são salvos em:
-
-- `data/processed/eda_outputs/`
-- `data/processed/model_outputs/`
-
-### Exemplos de arquivos produzidos
-
-#### EDA
-- `pass_fail_distribution.png`
-- `sensor_desc_sorted_by_std.csv`
-- `feature_fscore_top20.png`
-- `boxplots_top3_negative_sensors.png`
-- `boxplots_top3_positive_sensors.png`
-- `heatmap_top_sensors.png`
-
-#### Modelagem
-- `feature_fscore_ranking.csv`
-- `feature_importance_rf.csv`
-- `feature_fscore_top20.png`
-- `feature_importance_top20.png`
-- `confusion_matrix.png`
-- `roc_curve.png`
-- `precision_recall_curve.png`
-- `threshold_tradeoff.png`
-- `model_metrics_summary.csv`
-
----
-
-## Como executar
-
-### Pré-requisitos
-
-- Python 3.10+
-- bibliotecas principais:
-  - `pandas`
-  - `numpy`
-  - `matplotlib`
-  - `seaborn`
-  - `scikit-learn`
-
-### Execução dos notebooks
-
-1. Rode `01_explore.ipynb`
-2. Rode `02_transform.ipynb`
-3. Rode `03_analysis.ipynb`
-4. Rode `04_model.ipynb`
-
-### Execução dos scripts
-
-Se estiver usando os arquivos `.py` equivalentes:
-
-```bash
-python src/01_explore.py
-python src/02_transform.py
-python src/03_analysis.py
-python src/04_model.py
+```dash
+npm run build
+npm run preview
 ```
 
 ---
 
-## Principais conclusões
+### Página 1 — Visão Geral
 
-- O SECOM é um problema de classificação fortemente desbalanceado.
-- Há sinais reais de falha nos sensores de processo.
-- A EDA identificou dois grupos de sensores críticos:
-  - um com efeito positivo sobre FAIL;
-  - outro com efeito negativo.
-- O modelo Random Forest conseguiu capturar sinal útil, com ROC-AUC em torno de 0,75.
-- O threshold padrão não é o mais adequado; thresholds menores melhoram o recall de FAIL.
-- A combinação de correlação, F-score e feature importance ajuda a explicar o processo de forma mais confiável.
+Apresenta uma leitura executiva dos sensores mais relevantes: KPIs gerais, ranking de importância (Random Forest), ranking de F-Score e as tabelas de correlação positiva/negativa com FAIL.
+
+![Visão Geral - KPIs e ranking](screenshots/01-visao-geral_1.png)
+![Visão Geral - correlações positivas](screenshots/01-visao-geral_2.png)
+![Visão Geral - correlações negativas](screenshots/01-visao-geral_3.png)
+![Visão Geral - insights analíticos](screenshots/01-visao-geral_4.png)
 
 ---
 
-## Próximos passos
+### Página 2 — Análise de Sensores
 
-Possíveis extensões do projeto:
+Permite explorar individualmente cada sensor identificado pelo pipeline, com busca, filtro por Top N, filtro por tipo de correlação e visualização comparativa.
 
-- tuning de hiperparâmetros;
-- teste de outros algoritmos;
-- SMOTE ou undersampling;
-- busca formal do threshold ótimo;
-- análise detalhada de erros;
-- construção do dashboard final para monitoramento dos sensores críticos.
+![Análise de Sensores - filtros e busca](screenshots/02-analise-sensores_1.png)
+![Análise de Sensores - gráfico comparativo](screenshots/02-analise-sensores_2.png)
+![Análise de Sensores - tabela detalhada](screenshots/02-analise-sensores_3.png)
 
 ---
 
-## Observação final
+### Página 3 — Diagnóstico do Modelo
 
-Este projeto foi estruturado para combinar:
+Combina três evidências estatísticas independentes — importância do Random Forest, F-Score (ANOVA) e correlação com FAIL — em um score de consenso, usado para classificar o nível de prioridade de cada sensor:
 
-- análise exploratória;
-- interpretação de processo;
-- modelagem preditiva;
-- entregáveis reutilizáveis para um dashboard operacional.
+|$$
+\text{Score de Consenso} = \frac{\text{RF normalizado} + \text{F-Score normalizado} + |\text{Correlação normalizada}|}{3}
+$$|
 
-A ideia não é apenas prever falhas, mas apoiar a compreensão do processo industrial e a tomada de decisão.
+> Este score é uma ferramenta de priorização para investigação, não uma métrica oficial do modelo. Correlação não implica causalidade, e a validação operacional depende de especialistas do processo.
+
+![Diagnóstico do Modelo - score de consenso](screenshots/03-diagnostico-modelo_1.png)
+![Diagnóstico do Modelo - classificação por prioridade](screenshots/03-diagnostico-modelo_2.png)
+![Diagnóstico do Modelo - métricas combinadas](screenshots/03-diagnostico-modelo_3.png)
+![Diagnóstico do Modelo - visualização detalhada](screenshots/03-diagnostico-modelo_4.png)
+
+---
+
+### Página 4 — Dicionário de Dados
+
+Documenta o significado de cada métrica, arquivo e classificação utilizada no dashboard, reforçando a transparência metodológica e facilitando a leitura por usuários não técnicos.
+
+![Dicionário de Dados - métricas](screenshots/04-dicionario-dados_1.png)
+![Dicionário de Dados - classificações](screenshots/04-dicionario-dados_2.png)
+![Dicionário de Dados - limitações e definições](screenshots/04-dicionario-dados_3.png)
+
+---
+
+## Estrutura do repositório
+
+```
+projeto-02-quality-analytics-secom/
+├── README.md
+├── data/
+│   ├── raw/
+│   └── processed/
+│       ├── secom_clean.csv
+│       ├── eda_outputs/
+│       └── model_outputs/
+├── src/
+│   ├── 01_extract.py
+│   ├── 02_transform.py
+│   ├── 03_analysis.py
+│   └── 04_model.py
+├── dashboard/
+│   ├── Book1.twb
+│   └── web-app/
+├── screenshots/
+├── docs/
+```
+
+---
+
+## Tecnologias utilizadas
+
+- **Python** (pandas, numpy, scikit-learn, matplotlib, seaborn)
+- **Jupyter Notebook**
+- **React + Vite** (dashboard)
+- **Tableau** (versão alternativa do dashboard: `Book1.twb`)
+- **Git/GitHub**
+
+---
+
+## Limitações e próximos passos
+
+- O threshold padrão (0,50) não é adequado para este problema; um ajuste formal do ponto de corte é recomendado antes de qualquer uso operacional;
+- O consenso entre correlação, F-score e feature importance indica associação estatística, não causalidade — validação de causa raiz depende de investigação de processo por especialistas;
+- Próximas extensões possíveis: tuning de hiperparâmetros, teste de outros algoritmos, técnicas de balanceamento (SMOTE/undersampling), busca formal do threshold ótimo, e incorporação de gráficos de controle estatístico (SPC) caso dados temporais estejam disponíveis.
+
+---
+
+## Autor
+
+**Ivan** — Quality Management & Data Analyst

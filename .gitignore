@@ -223,3 +223,6 @@ projeto-02-quality-analytics-secom-backup/
 # Previews HTML gerados por visualizadores de Markdown
 **/docs/*.html
 **/README.html
+
+# Notas pessoais de estudo/trabalho (nao versionar)
+anotacoes/

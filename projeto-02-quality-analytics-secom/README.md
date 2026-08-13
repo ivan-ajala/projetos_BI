@@ -154,7 +154,7 @@ Acesse: `http://localhost:5173/`
 
 Para gerar a versão de produção:
 
-```dash
+```bash
 npm run build
 npm run preview
 ```

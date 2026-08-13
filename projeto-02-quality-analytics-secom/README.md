@@ -6,7 +6,7 @@ O projeto combina três camadas de trabalho: **análise exploratória e estatís
 
 ---
 
-## Sobre o projeto
+## 📌 Sobre o Projeto
 
 O objetivo central é identificar quais sensores de processo estão mais associados à ocorrência da classe **FAIL**, e usar essa informação para:
 
@@ -18,7 +18,7 @@ Este projeto foi desenvolvido para demonstrar, de forma prática, competências 
 
 ---
 
-## O problema de negócio
+## 🎯 O Problema de Negócio
 
 Em processos industriais estáveis, a grande maioria das unidades produzidas é aprovada, e apenas uma pequena fração falha. O SECOM reflete exatamente esse cenário:
 
@@ -37,7 +37,7 @@ O foco de negócio é claro: **detectar o máximo de falhas reais possível**, m
 
 ---
 
-## Conexão com experiência profissional
+## 💼 Conexão com a Experiência Profissional
 
 | Competência de Quality Management & Data Analyst | Como foi aplicada neste projeto |
 |---|---|
@@ -53,7 +53,7 @@ O foco de negócio é claro: **detectar o máximo de falhas reais possível**, m
 
 ---
 
-## Dataset
+## 🗃️ Dataset
 
 A base utilizada é uma versão tratada do dataset SECOM, contendo:
 
@@ -73,7 +73,7 @@ No pipeline de tratamento:
 
 ---
 
-## Pipeline analítico
+## 🔄 Pipeline Analítico
 
 O projeto segue quatro etapas sequenciais:
 
@@ -86,7 +86,7 @@ Os notebooks equivalentes (`.ipynb`) estão disponíveis na mesma pasta, documen
 
 ---
 
-## Sensores críticos identificados
+## 🔍 Sensores Críticos Identificados
 
 A análise exploratória revelou dois grupos de sensores com comportamento distinto em relação à ocorrência de FAIL.
 
@@ -104,7 +104,7 @@ Essa distinção é operacionalmente relevante: em alguns sensores o alerta deve
 
 ---
 
-## Metodologia de modelagem
+## 🤖 Metodologia de Modelagem
 
 **Seleção de variáveis:**
 - ANOVA F-score (`SelectKBest` + `f_classif`);
@@ -126,7 +126,7 @@ Essa distinção é operacionalmente relevante: em alguns sensores o alerta deve
 
 ---
 
-## Resultados
+## 📊 Resultados
 
 - **ROC-AUC médio (validação cruzada): ~0,75**
 - Recall de FAIL baixo no threshold padrão (0,50) — indicando corte conservador demais para a classe minoritária
@@ -138,11 +138,11 @@ A combinação entre **correlação**, **F-score (ANOVA)** e **feature importanc
 
 ---
 
-## Dashboard interativo (Camada de BI)
+## 🖥️ Dashboard Interativo — Camada de BI
 
 O dashboard foi desenvolvido em **React + Vite**, consumindo diretamente os outputs gerados pelo pipeline analítico (`eda_outputs/` e `model_outputs/`). Ele funciona como a camada de comunicação e tomada de decisão do projeto, traduzindo os resultados estatísticos e do modelo em uma navegação acessível para stakeholders não técnicos.
 
-### Como executar o dashboard
+### ▶️ Como Executar o Dashboard
 
 ```dash
 cd dashboard/web-app
@@ -161,7 +161,7 @@ npm run preview
 
 ---
 
-### Página 1 — Visão Geral
+### 1️⃣ Página 1 — Visão Geral
 
 Apresenta uma leitura executiva dos sensores mais relevantes: KPIs gerais, ranking de importância (Random Forest), ranking de F-Score e as tabelas de correlação positiva/negativa com FAIL.
 
@@ -172,7 +172,7 @@ Apresenta uma leitura executiva dos sensores mais relevantes: KPIs gerais, ranki
 
 ---
 
-### Página 2 — Análise de Sensores
+### 2️⃣ Página 2 — Análise de Sensores
 
 Permite explorar individualmente cada sensor identificado pelo pipeline, com busca, filtro por Top N, filtro por tipo de correlação e visualização comparativa.
 
@@ -182,13 +182,18 @@ Permite explorar individualmente cada sensor identificado pelo pipeline, com bus
 
 ---
 
-### Página 3 — Diagnóstico do Modelo
+### 3️⃣ Página 3 — Diagnóstico do Modelo
 
 Combina três evidências estatísticas independentes — importância do Random Forest, F-Score (ANOVA) e correlação com FAIL — em um score de consenso, usado para classificar o nível de prioridade de cada sensor:
 
-|$$
-\text{Score de Consenso} = \frac{\text{RF normalizado} + \text{F-Score normalizado} + |\text{Correlação normalizada}|}{3}
-$$|
+$$
+\text{Score de Consenso} =
+\frac{
+\text{RF normalizado} +
+\text{F-Score normalizado} +
+|\text{Correlação normalizada}|
+}{3}
+$$
 
 > Este score é uma ferramenta de priorização para investigação, não uma métrica oficial do modelo. Correlação não implica causalidade, e a validação operacional depende de especialistas do processo.
 
@@ -199,7 +204,7 @@ $$|
 
 ---
 
-### Página 4 — Dicionário de Dados
+### 4️⃣ Página 4 — Dicionário de Dados
 
 Documenta o significado de cada métrica, arquivo e classificação utilizada no dashboard, reforçando a transparência metodológica e facilitando a leitura por usuários não técnicos.
 
@@ -209,9 +214,9 @@ Documenta o significado de cada métrica, arquivo e classificação utilizada no
 
 ---
 
-## Estrutura do repositório
+## 📁 Estrutura do Repositório
 
-```
+```batch
 projeto-02-quality-analytics-secom/
 ├── README.md
 ├── data/
@@ -234,7 +239,7 @@ projeto-02-quality-analytics-secom/
 
 ---
 
-## Tecnologias utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 - **Python** (pandas, numpy, scikit-learn, matplotlib, seaborn)
 - **Jupyter Notebook**
@@ -244,7 +249,7 @@ projeto-02-quality-analytics-secom/
 
 ---
 
-## Limitações e próximos passos
+## ⚠️ Limitações e Próximos Passos
 
 - O threshold padrão (0,50) não é adequado para este problema; um ajuste formal do ponto de corte é recomendado antes de qualquer uso operacional;
 - O consenso entre correlação, F-score e feature importance indica associação estatística, não causalidade — validação de causa raiz depende de investigação de processo por especialistas;
@@ -252,6 +257,6 @@ projeto-02-quality-analytics-secom/
 
 ---
 
-## Autor
+## 👤 Autor
 
 **Ivan** — Quality Management & Data Analyst

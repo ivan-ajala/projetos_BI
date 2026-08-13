@@ -1,9 +1,10 @@
-# Meu Portfólio de Business Intelligence & Data Science
+# Meu Portfólio de Business Intelligence, Data Analytics & Data Science
 
-Bem-vindo ao meu repositório de projetos de Business Intelligence (BI), Análise de Dados e Ciência de Dados.
+Bem-vindo ao meu repositório de projetos de Business Intelligence (BI), Data Analytics e Data Science.
 
-Aqui reúno projetos que cobrem o ciclo completo de dados: desde a **extração e transformação (ETL)** até a **modelagem estatística, machine learning e construção de dashboards executivos**.
-O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dados, negócios, modelagem preditiva e visualização** para suporte à tomada de decisão.
+Aqui reúno projetos que cobrem o ciclo completo de dados: desde a **extração e transformação (ETL)** até a **análise exploratória, modelagem estatística, Machine Learning e construção de dashboards**.
+
+O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dados, negócios, análise preditiva, visualização e suporte à tomada de decisão**.
 
 ---
 
@@ -12,7 +13,7 @@ O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dado
 | #   | Título do Projeto                                           | Habilidades Técnicas                                              | Foco de Negócio                                                  | Link |
 |-----|--------------------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------|------|
 | **01** | Superstore Sales & Profitability Dashboard (Tableau)       | Tableau, LOD Expressions, Table Calculations, KPI Design           | Rentabilidade, Política de Descontos, Comportamento Comercial     | [Ver Projeto](./projeto-01-superstore-tableau/README.md) |
-| **02** | SECOM Quality Analytics                                     | Python, Pandas, Scikit-learn, React, Vite                          | Controle de Qualidade, Sensores Industriais, Previsão de Falhas   | [Ver Projeto](./projeto-02-quality-analytics-secom/README.md) |
+| **02** | SECOM Quality Analytics                                     | Python, Pandas, Scikit-learn, React, Vite                         | Controle de Qualidade, Sensores Industriais, Previsão de Falhas   | [Ver Projeto](./projeto-02-quality-analytics-secom/README.md) |
 | **03** | *[Em Desenvolvimento...]*                                    | A definir                                                            | A definir                                                          | Em breve |
 
 ---

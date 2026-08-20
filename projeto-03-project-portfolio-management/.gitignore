@@ -1,0 +1,59 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.DS_Store
+.env
+models/*.pkl
+
+# Sistema operacional
+.DS_Store
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+.virtual_documents/
+
+# Arquivos temporários
+*.tmp
+*.log
+
+# Versões antigas ou auxiliares
+x_04_portfolio_ml_models.md
+
+# Sistema operacional
+.DS_Store
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+.virtual_documents/
+
+# Arquivos temporários
+*.tmp
+*.log
+
+# Versões antigas ou auxiliares
+x_04_portfolio_ml_models.md
+
+# Notas e ccomentários internos
+/docs
+

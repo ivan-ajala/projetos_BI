@@ -235,3 +235,20 @@ projeto-02-quality-analytics-secom/docs/portfolio_ds.md
 projeto-02-quality-analytics-secom/docs/Sumário Executivo_for reame.md
 projeto-02-quality-analytics-secom/docs/Sumário Sobre_ for LinkedIn.md
 projeto-02-quality-analytics-secom/dashboard/Book1.twb
+
+# Projeto 03 — ambiente e arquivos locais
+projeto-03-project-portfolio-management/.venv/
+projeto-03-project-portfolio-management/.virtual_documents/
+projeto-03-project-portfolio-management/**/__pycache__/
+projeto-03-project-portfolio-management/**/.ipynb_checkpoints/
+
+# Arquivos do macOS
+**/.DS_Store
+
+# Dados locais do Projeto 03
+projeto-03-project-portfolio-management/data/raw/
+projeto-03-project-portfolio-management/data/processed/
+
+# Anotações pessoais locais
+projeto-03-project-portfolio-management/docs/*_notes.md
+

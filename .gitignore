@@ -252,3 +252,7 @@ projeto-03-project-portfolio-management/data/processed/
 # Anotações pessoais locais
 projeto-03-project-portfolio-management/docs/*_notes.md
 
+
+# Arquivos de backup e versões intermediárias (qualquer projeto)
+*.backup
+*.pre-dashboard

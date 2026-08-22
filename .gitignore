@@ -256,3 +256,9 @@ projeto-03-project-portfolio-management/docs/*_notes.md
 # Arquivos de backup e versões intermediárias (qualquer projeto)
 *.backup
 *.pre-dashboard
+
+# Anotações pessoais do Projeto 03
+projeto-03-project-portfolio-management/notes/
+
+# Anotações pessoais do Projeto 03
+projeto-03-project-portfolio-management/docs/dashboard-notes.md

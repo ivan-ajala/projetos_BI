@@ -14,13 +14,16 @@ import { buildTrendKpis, buildVolumeSeries, buildPortfolioCompositionSeries, bui
 
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, } from 'recharts'
 import { LineChart, Line, AreaChart, Area, ComposedChart, } from 'recharts'
+import IALogo from "./assets/IA_logo.png";
 
 function Topbar() {
   return (
     <header className="app-header">
       <div className="app-header-inner">
         <div className="brand">
-          <div className="brand-mark">P</div>
+          <div className="brand-mark">
+              <img src={IALogo} alt="datIA" />
+          </div>
           <div>
             <p className="brand-title">Project Portfolio Management</p>
             <p className="brand-subtitle">Portfolio Analytics</p>
@@ -78,12 +81,7 @@ function Topbar() {
             Dicionário
           </NavLink>
 
-          <span className="nav-link nav-link-disabled" aria-disabled="true" title="Em breve">
-            Dashboard <span className="nav-badge">Em breve</span>
-          </span>
-          <span className="nav-link nav-link-disabled" aria-disabled="true" title="Em breve">
-            Documentação <span className="nav-badge">Em breve</span>
-          </span>
+          
         </nav>
       </div>
     </header>
@@ -1698,269 +1696,6 @@ function Dicionario() {
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div className="risk-table-card">
-        <h2 className="chart-title">Resumo mensal do portfólio</h2>
-
-        <p className="chart-subtitle">
-          Campos disponíveis no arquivo{' '}
-          <strong>monthly_portfolio_snapshot.csv</strong>. Este arquivo possui
-          granularidade mensal e é utilizado principalmente nos gráficos de
-          tendências e evolução do portfólio ao longo do tempo.
-        </p>
-
-        <div className="table-wrapper">
-          <table className="data-table">
-            <thead>
-              <tr>
-                <th>Campo</th>
-                <th>Tipo</th>
-                <th>Descrição de negócio</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {monthlyFields.map((field) => (
-                <tr key={field.name}>
-                  <td>
-                    <strong>{field.name}</strong>
-                  </td>
-                  <td>{field.type}</td>
-                  <td
-                    style={{
-                      whiteSpace: 'normal',
-                      minWidth: '420px',
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {field.description}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="chart-card">
-        <h2 className="chart-title">Regras de negócio e metodologia</h2>
-
-        <p className="chart-subtitle">
-          Esta seção explica como os principais indicadores do dashboard são
-          calculados e interpretados, garantindo consistência na análise do
-          portfólio.
-        </p>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Indicadores de prazo
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            <strong>planned_duration_days:</strong> diferença em dias entre{' '}
-            <em>planned_end_date</em> e <em>planned_start_date</em>.
-          </li>
-          <li>
-            <strong>actual_duration_days:</strong> diferença em dias entre{' '}
-            <em>actual_end_date</em> e <em>actual_start_date</em>. Calculada
-            apenas para projetos concluídos.
-          </li>
-          <li>
-            <strong>schedule_variance_days:</strong> <em>actual_duration_days</em>{' '}
-            menos <em>planned_duration_days</em>. Valores positivos indicam
-            atraso; valores negativos indicam entrega antecipada.
-          </li>
-          <li>
-            <strong>start_variance_days:</strong> diferença entre a data real e
-            a data planejada de início. Atrasos no início frequentemente
-            impactam o cronograma total.
-          </li>
-          <li>
-            <strong>end_variance_days:</strong> diferença entre a data real e a
-            data planejada de término. É o indicador mais direto de cumprimento
-            do prazo final.
-          </li>
-          <li>
-            <strong>completed_on_time:</strong> verdadeiro quando{' '}
-            <em>schedule_variance_days</em> é menor ou igual a zero, ou seja, o
-            projeto foi concluído dentro ou antes do prazo.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Indicadores de custo
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            <strong>cost_variance:</strong> <em>planned_budget</em> menos{' '}
-            <em>actual_cost</em>. Valores positivos indicam economia; valores
-            negativos indicam estouro orçamentário.
-          </li>
-          <li>
-            <strong>cost_variance_pct:</strong> variação percentual em relação
-            ao orçamento planejado. Permite comparar projetos de diferentes
-            portes financeiros.
-          </li>
-          <li>
-            <strong>completed_within_budget:</strong> verdadeiro quando{' '}
-            <em>cost_variance</em> é maior ou igual a zero, ou seja, o projeto
-            não ultrapassou o orçamento aprovado.
-          </li>
-          <li>
-            <strong>hours_variance:</strong> diferença entre horas planejadas e
-            horas reais. Complementa a análise de custo com a perspectiva de
-            esforço da equipe.
-          </li>
-          <li>
-            <strong>hours_variance_pct:</strong> variação percentual do esforço
-            em relação ao planejado.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Indicadores de qualidade e satisfação
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            <strong>final_quality_score:</strong> pontuação atribuída à
-            qualidade da entrega do projeto, geralmente em escala numérica
-            definida pela organização.
-          </li>
-          <li>
-            <strong>client_satisfaction_score:</strong> nota de satisfação
-            atribuída pelo cliente ao resultado do projeto.
-          </li>
-          <li>
-            <strong>quality_band:</strong> faixa qualitativa derivada do{' '}
-            <em>final_quality_score</em>, agrupando os projetos em categorias
-            como Alta, Média ou Baixa para facilitar a interpretação gerencial.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Indicadores de risco
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            <strong>schedule_risk_flag:</strong> sinalizador booleano que indica
-            se o projeto apresenta risco relevante de atraso, com base em regras
-            de negócio ou thresholds definidos.
-          </li>
-          <li>
-            <strong>cost_risk_flag:</strong> sinalizador booleano que indica se
-            o projeto apresenta risco relevante de estouro orçamentário.
-          </li>
-          <li>
-            <strong>predicted_schedule_risk_proba:</strong> probabilidade
-            estimada por modelo de Machine Learning de que o projeto enfrente
-            risco de atraso.
-          </li>
-          <li>
-            <strong>predicted_cost_risk_proba:</strong> probabilidade estimada
-            de que o projeto ultrapasse o orçamento.
-          </li>
-          <li>
-            <strong>schedule_risk_level</strong> e{' '}
-            <strong>cost_risk_level:</strong> classificações qualitativas
-            (Baixo, Médio, Alto) derivadas das probabilidades preditivas,
-            facilitando a priorização de ações.
-          </li>
-          <li>
-            <strong>risk_cluster</strong> e{' '}
-            <strong>cluster_profile:</strong> agrupamento de projetos com
-            perfis de risco semelhantes, permitindo identificar padrões
-            recorrentes no portfólio e direcionar estratégias de mitigação.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Status dos projetos
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            <strong>project_status:</strong> situação atual do projeto. Os
-            valores típicos incluem Planejado, Em Execução, Concluído e
-            Cancelado.
-          </li>
-          <li>
-            <strong>is_completed:</strong> verdadeiro para projetos que
-            atingiram a conclusão, independentemente do resultado.
-          </li>
-          <li>
-            <strong>is_cancelled:</strong> verdadeiro para projetos encerrados
-            antes da conclusão prevista.
-          </li>
-          <li>
-            <strong>is_active_current:</strong> verdadeiro para projetos
-            atualmente em execução no momento da análise.
-          </li>
-          <li>
-            <strong>is_pipeline:</strong> verdadeiro para projetos previstos ou
-            planejados, mas ainda não iniciados.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Agregados mensais
-        </h3>
-
-        <ul style={{ margin: '8px 0 16px', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            Os campos do arquivo{' '}
-            <strong>monthly_portfolio_snapshot.csv</strong> são agregados a
-            partir dos dados individuais dos projetos, consolidados por mês de
-            referência.
-          </li>
-          <li>
-            <strong>projects_starting, projects_completed, projects_cancelled:</strong>{' '}
-            contagem de projetos que iniciaram, foram concluídos ou cancelados
-            no mês.
-          </li>
-          <li>
-            <strong>active_planned_budget</strong> e{' '}
-            <strong>active_actual_cost:</strong> soma dos orçamentos e custos
-            dos projetos ativos no período.
-          </li>
-          <li>
-            <strong>completed_budget</strong> e{' '}
-            <strong>completed_actual_cost:</strong> soma dos orçamentos e custos
-            dos projetos concluídos no mês.
-          </li>
-          <li>
-            <strong>average_team_size_active:</strong> média simples do tamanho
-            das equipes dos projetos ativos no período.
-          </li>
-        </ul>
-
-        <h3 style={{ marginTop: '20px', fontSize: '14px', fontWeight: 700, color: 'var(--color-text)' }}>
-          Observações gerais
-        </h3>
-
-        <ul style={{ margin: '8px 0 0', paddingLeft: '20px', color: 'var(--color-text)', fontSize: '13px', lineHeight: 1.7 }}>
-          <li>
-            Todos os indicadores de variação (prazo, custo e horas) utilizam a
-            convenção <strong>planejado menos real</strong>. Isso significa que
-            valores positivos representam resultado favorável (economia ou
-            antecipação), e valores negativos representam resultado desfavorável
-            (estouro ou atraso).
-          </li>
-          <li>
-            Os indicadores booleanos (<em>is_completed</em>,{' '}
-            <em>completed_on_time</em>, etc.) são derivados dos campos
-            numéricos e de data, garantindo consistência entre as diferentes
-            visualizações do dashboard.
-          </li>
-          <li>
-            As probabilidades e classificações de risco são geradas por modelos
-            de Machine Learning treinados sobre o histórico do portfólio e devem
-            ser interpretadas como estimativas, não como certezas.
-          </li>
-        </ul>
       </div>
     </div>
   )

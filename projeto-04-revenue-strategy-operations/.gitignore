@@ -1,0 +1,39 @@
+# Dados brutos e intermediários
+data/raw/*.csv
+data/raw/*.zip
+data/interim/*
+data/processed/*.csv
+
+# Exceção: manter apenas arquivos de controle/documentação
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+
+# Ambientes Python
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Arquivos do sistema e temporários
+.DS_Store
+.Rapp.history
+*.log
+
+# Node / React
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env
+dashboard/.env.*
+dashboard/npm-debug.log*
+dashboard/yarn-debug.log*
+dashboard/pnpm-debug.log*
+
+# Backups e arquivos de trabalho
+*.bak
+*.backup
+*.tmp
+.pre-dashboard

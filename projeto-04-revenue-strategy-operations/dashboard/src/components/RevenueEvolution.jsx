@@ -1,11 +1,14 @@
 // src/components/RevenueEvolution.jsx
 import React, { useEffect, useState } from 'react';
+import Navigation from './Navigation'; // Importa o componente de navegação
+
 import {
   formatCurrency,
   formatNumber,
   formatMonthYear,
 } from '../utils/formatters';
-import { parseCsv } from '../utils/csvParser'; // Vamos criar este utilitário
+
+import { parseCsv } from '../utils/csvParser';
 
 function RevenueEvolution() {
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
@@ -65,6 +68,11 @@ function RevenueEvolution() {
   // Lógica para calcular KPIs e preparar dados para o gráfico virá aqui
   // Por enquanto, apenas um placeholder
 
+  // Encontra o primeiro mês do histórico e o último mês do forecast para o período
+  const firstMonth = monthlyRevenue.length > 0 ? monthlyRevenue[0].purchase_month : '';
+  const lastMonth = forecastData.length > 0 ? forecastData[forecastData.length - 1].forecast_month : '';
+
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
@@ -81,9 +89,11 @@ function RevenueEvolution() {
         </div>
         <div className="header-period">
           {/* Período dinâmico será adicionado aqui */}
-          Período: {formatMonthYear(monthlyRevenue[0]?.purchase_month)} — {formatMonthYear(forecastData[forecastData.length - 1]?.forecast_month)}
+          Período: {formatMonthYear(firstMonth)} — {formatMonthYear(lastMonth)}
         </div>
       </header>
+
+      <Navigation /> {/* Adiciona o componente de navegação aqui */}
 
       <main className="dashboard-main">
         <section className="dashboard-section">

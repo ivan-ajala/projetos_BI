@@ -1,0 +1,316 @@
+:root {
+  --navy-900: #102a43;
+  --navy-800: #163f52;
+  --blue-600: #1479e8;
+  --blue-700: #0868d8;
+  --text-primary: #243b53;
+  --text-secondary: #627d98;
+  --border: #d9e2ec;
+  --background: #f5f7fa;
+  --surface: #ffffff;
+  --shadow: 0 4px 14px rgba(16, 42, 67, 0.08);
+}
+
+/* Reset local do dashboard */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--background);
+  color: var(--text-primary);
+  font-family:
+    Inter,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Estados de carregamento e erro */
+
+.loading,
+.error,
+.no-data {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+}
+
+.error {
+  color: #b42318;
+}
+
+/* Estrutura principal */
+
+.dashboard-container {
+  min-height: 100vh;
+  background: var(--background);
+}
+
+/* Cabeçalho */
+
+.dashboard-header {
+  min-height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 20px 48px;
+
+  color: #ffffff;
+  background:
+    linear-gradient(
+      108deg,
+      #0c2734 0%,
+      #123746 48%,
+      #1b4651 100%
+    );
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 3px 10px rgba(16, 42, 67, 0.18);
+}
+
+.header-brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/*
+  O logo recebe dimensões fixas para não dominar o cabeçalho.
+  O fundo branco é intencional porque o arquivo do logo possui
+  uma área branca ao redor da marca.
+*/
+
+.header-logo {
+  display: block;
+  width: 116px;
+  height: 76px;
+  flex: 0 0 116px;
+
+  object-fit: contain;
+  object-position: center;
+  padding: 6px;
+
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.16);
+}
+
+.header-title {
+  min-width: 0;
+}
+
+.header-title h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.65rem, 2.5vw, 2.55rem);
+  font-weight: 750;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.header-title p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.header-period {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Conteúdo */
+
+.dashboard-main {
+  width: min(100% - 48px, 1380px);
+  margin: 0 auto;
+  padding: 34px 0 56px;
+}
+
+/* Seções */
+
+.kpi-section,
+.notes-section {
+  margin-bottom: 28px;
+  padding: 28px 30px 30px;
+  background: var(--surface);
+  border: 1px solid #edf1f5;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.kpi-section h2 {
+  margin: 0 0 22px;
+  padding-bottom: 16px;
+
+  color: var(--blue-600);
+  border-bottom: 2px solid var(--border);
+
+  font-size: clamp(1.45rem, 2vw, 2rem);
+  font-weight: 750;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.notes-section h3 {
+  margin: 0 0 16px;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+}
+
+.notes-section ul {
+  margin: 0;
+  padding-left: 1.3rem;
+  color: var(--text-secondary);
+}
+
+.notes-section li {
+  margin-bottom: 10px;
+  line-height: 1.55;
+}
+
+/* Grade de KPIs */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Cards */
+
+.kpi-card {
+  min-width: 0;
+  min-height: 142px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 22px 16px;
+  text-align: center;
+
+  background: #fbfcfe;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  box-shadow: 0 2px 5px rgba(16, 42, 67, 0.05);
+}
+
+.kpi-card h3 {
+  max-width: 100%;
+  margin: 0 0 14px;
+
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.kpi-card p {
+  max-width: 100%;
+  margin: 0;
+
+  color: var(--blue-600);
+  font-size: clamp(1.45rem, 2.1vw, 2rem);
+  font-weight: 750;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+/* Reduz um pouco valores monetários muito extensos */
+
+.kpi-card:first-child p {
+  font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+}
+
+/* Responsividade */
+
+@media (max-width: 1050px) {
+  .dashboard-header {
+    padding: 18px 28px;
+  }
+
+  .dashboard-main {
+    width: min(100% - 32px, 900px);
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .dashboard-header {
+    min-height: auto;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px 20px;
+  }
+
+  .header-brand {
+    width: 100%;
+    gap: 14px;
+  }
+
+  .header-logo {
+    width: 82px;
+    height: 58px;
+    flex-basis: 82px;
+    padding: 4px;
+  }
+
+  .header-title h1 {
+    font-size: 1.45rem;
+  }
+
+  .header-title p {
+    margin-top: 5px;
+    font-size: 0.92rem;
+  }
+
+  .header-period {
+    padding-left: 96px;
+    font-size: 0.88rem;
+  }
+
+  .dashboard-main {
+    width: min(100% - 24px, 560px);
+    padding-top: 20px;
+  }
+
+  .kpi-section,
+  .notes-section {
+    padding: 22px 16px;
+    border-radius: 11px;
+  }
+
+  .kpi-section h2 {
+    font-size: 1.35rem;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .kpi-card {
+    min-height: 118px;
+  }
+}

@@ -21,7 +21,6 @@ export function parseCsv(csvText) {
     }, {});
 
     // Converte valores numéricos para Number onde aplicável
-    // Baseado nos cabeçalhos que você forneceu
     return {
       ...row,
       orders: Number(row.orders),

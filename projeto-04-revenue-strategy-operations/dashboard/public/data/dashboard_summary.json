@@ -1,0 +1,27 @@
+{
+  "revenue": {
+    "total_orders": 99441,
+    "total_gross_revenue": 15843553.240000002,
+    "total_months_calendar": 26,
+    "total_months_observed": 25,
+    "average_ticket_overall": 159.32616566607336,
+    "first_month": "2016-09",
+    "last_month": "2018-10"
+  },
+  "customers": {
+    "total_unique_customers": 96096,
+    "total_segments": 6
+  },
+  "forecast": {
+    "model_used": "moving_average_3m",
+    "training_window_start": "2017-01",
+    "training_window_end": "2018-08",
+    "test_window_start": "2018-05",
+    "test_window_end": "2018-07",
+    "approximate_error_rmse": 58426.52391038232,
+    "forecast_horizon_months": 6,
+    "forecast_start_month": "2018-09",
+    "forecast_end_month": "2019-02",
+    "forecast_total_gross_revenue": 6169427.22
+  }
+}

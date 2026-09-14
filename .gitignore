@@ -262,3 +262,63 @@ projeto-03-project-portfolio-management/notes/
 
 # Anotações pessoais do Projeto 03
 projeto-03-project-portfolio-management/docs/dashboard-notes.md
+
+# --- Regras específicas para projeto-04-revenue-strategy-operations/dashboard ---
+# Ignorar arquivos de backup e temporários dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.css
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/main copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/index copy*.css
+
+# Ignorar node_modules e dist dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/node_modules/
+projeto-04-revenue-strategy-operations/dashboard/dist/
+projeto-04-revenue-strategy-operations/dashboard/.vite/
+
+# Ignorar package-lock.json dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/package-lock.json
+
+# Ignorar arquivos de configuração do oxlint
+projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
+
+# Ignorar o diretório 'src' do projeto pai se ele estiver sendo listado como untracked
+# (se houver um src/ na raiz de projetos_BI que não deve ser versionado)
+/src/
+
+# Ignorar o diretório 'notebooks' do projeto pai
+/notebooks/
+
+# Ignorar o diretório 'data/processed' do projeto pai
+/data/processed/
+
+# Ignorar o arquivo 'requirements.txt' do projeto pai
+/requirements.txt# --- Regras específicas para projeto-04-revenue-strategy-operations/dashboard ---
+# Ignorar arquivos de backup e temporários dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.css
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/main copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/index copy*.css
+
+# Ignorar node_modules e dist dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/node_modules/
+projeto-04-revenue-strategy-operations/dashboard/dist/
+projeto-04-revenue-strategy-operations/dashboard/.vite/
+
+# Ignorar package-lock.json dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/package-lock.json
+
+# Ignorar arquivos de configuração do oxlint
+projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
+
+# Ignorar o diretório 'src' do projeto pai se ele estiver sendo listado como untracked
+# (se houver um src/ na raiz de projetos_BI que não deve ser versionado)
+/src/
+
+# Ignorar o diretório 'notebooks' do projeto pai
+/notebooks/
+
+# Ignorar o diretório 'data/processed' do projeto pai
+/data/processed/
+
+# Ignorar o arquivo 'requirements.txt' do projeto pai
+/requirements.txt

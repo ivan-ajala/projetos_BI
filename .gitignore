@@ -362,3 +362,6 @@ projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
 # Ignorar o arquivo 'requirements.txt' do projeto pai
 /requirements.txt
 
+# Ignorar a pasta 'src' diretamente dentro de projeto-04-revenue-strategy-operations
+projeto-04-revenue-strategy-operations/src/
+

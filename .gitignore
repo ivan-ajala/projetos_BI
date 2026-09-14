@@ -322,3 +322,43 @@ projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
 
 # Ignorar o arquivo 'requirements.txt' do projeto pai
 /requirements.txt
+
+# Regras específicas para projeto-04-revenue-strategy-operations
+projeto-04-revenue-strategy-operations/data/processed/
+projeto-04-revenue-strategy-operations/notebooks/
+projeto-04-revenue-strategy-operations/src/ # Se esta pasta contém apenas código Python/dados que não devem ser versionados
+
+# --- Regras específicas para projeto-04-revenue-strategy-operations/dashboard ---
+# Ignorar arquivos de backup e temporários dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.css
+projeto-04-revenue-strategy-operations/dashboard/src/App copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/main copy*.jsx
+projeto-04-revenue-strategy-operations/dashboard/src/index copy*.css
+
+# Ignorar node_modules e dist dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/node_modules/
+projeto-04-revenue-strategy-operations/dashboard/dist/
+projeto-04-revenue-strategy-operations/dashboard/.vite/
+
+# Ignorar package-lock.json dentro do dashboard
+projeto-04-revenue-strategy-operations/dashboard/package-lock.json
+
+# Ignorar arquivos de configuração do oxlint
+projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
+
+# Ignorar o diretório 'src' do projeto pai se ele estiver sendo listado como untracked
+# (se houver um src/ na raiz de projetos_BI que não deve ser versionado)
+# Se este 'src/' se refere ao src/ do dashboard, ele NÃO deve ser ignorado.
+# Pelo seu último git status, o 'src/' que está untracked é o do dashboard.
+# Então, esta linha deve ser REMOVIDA ou COMENTADA se ela estiver no .gitignore.
+# /src/
+
+# Ignorar o diretório 'notebooks' do projeto pai
+/notebooks/
+
+# Ignorar o diretório 'data/processed' do projeto pai
+/data/processed/
+
+# Ignorar o arquivo 'requirements.txt' do projeto pai
+/requirements.txt
+

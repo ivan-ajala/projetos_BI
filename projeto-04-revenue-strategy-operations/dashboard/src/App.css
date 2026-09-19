@@ -599,3 +599,215 @@
     font-size: 0.82rem;
   }
 }
+
+
+.section-description {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.revenue-table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+.revenue-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+  color: #18324d;
+  font-size: 0.95rem;
+}
+
+.revenue-table thead {
+  background: #f1f5f9;
+}
+
+.revenue-table th {
+  padding: 14px 16px;
+  border-bottom: 1px solid #dbe3ec;
+  color: #52657d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Colunas numéricas alinhadas com os respectivos valores */
+.revenue-table th:nth-child(3),
+.revenue-table th:nth-child(4),
+.revenue-table th:nth-child(5),
+.revenue-table th:nth-child(6) {
+  text-align: right;
+}
+
+.revenue-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid #e8edf3;
+  white-space: nowrap;
+}
+
+.revenue-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.revenue-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.month-cell {
+  font-weight: 600;
+}
+
+.currency-cell {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.data-type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.historical-badge {
+  background: #edeefe;
+  color: #6c6bd5;
+}
+
+.projection-badge {
+  background: #e7f7ee;
+  color: #319b67;
+}
+
+.positive-variation {
+  color: #238653;
+  font-weight: 700;
+  text-align: right;
+}
+
+.negative-variation {
+  color: #c24141;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Estilos para os filtros da tabela */
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que os itens quebrem a linha em telas menores */
+  gap: 15px; /* Espaçamento entre os elementos */
+}
+
+.table-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  background-color: #f1f5f9;
+  color: #52657d;
+  border: 1px solid #dbe3ec;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap; /* Evita que o texto do botão quebre a linha */
+}
+
+.filter-button:hover {
+  background-color: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.filter-button.active {
+  background-color: #6c6bd5; /* Cor principal do dashboard */
+  color: #ffffff;
+  border-color: #6c6bd5;
+}
+
+.filter-button.active:hover {
+  background-color: #5a58c0; /* Um tom um pouco mais escuro no hover */
+  border-color: #5a58c0;
+}
+
+.table-section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.section-description {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.table-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  border: 1px solid #dbe3ec;
+  border-radius: 8px;
+  padding: 9px 14px;
+  background: #f8fafc;
+  color: #52657d;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.filter-button:hover {
+  background: #eef2f7;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.filter-button.active {
+  background: #6867d9;
+  border-color: #6867d9;
+  color: #ffffff;
+}
+
+.filter-button.active:hover {
+  background: #5756c2;
+  border-color: #5756c2;
+}
+
+@media (max-width: 768px) {
+  .table-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .table-filters {
+    width: 100%;
+  }
+
+  .filter-button {
+    flex: 1;
+  }
+}

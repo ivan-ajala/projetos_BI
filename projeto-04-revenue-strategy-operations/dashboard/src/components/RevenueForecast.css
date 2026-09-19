@@ -1,0 +1,91 @@
+/* src/components/RevenueForecast.css */
+
+.revenue-forecast-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-top: 25px;
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+.revenue-forecast-container h2 {
+  font-size: 1.6rem;
+  color: #222;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.revenue-forecast-container h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.revenue-forecast-info p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.revenue-forecast-info strong {
+  color: #333;
+}
+
+.revenue-forecast-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #ddd;
+}
+
+.recharts-wrapper {
+  margin-top: 20px;
+}
+
+.revenue-forecast-table-container {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.revenue-forecast-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.revenue-forecast-table th,
+.revenue-forecast-table td {
+  border: 1px solid #ddd;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.revenue-forecast-table th {
+  background-color: #f8f8f8;
+  font-weight: 600;
+  color: #555;
+}
+
+.revenue-forecast-table tbody tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
+
+.revenue-forecast-table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.revenue-forecast-container.error {
+  color: #c24141;
+  font-weight: bold;
+  background-color: #ffebeb;
+  border: 1px solid #c24141;
+  padding: 15px;
+  border-radius: 8px;
+}

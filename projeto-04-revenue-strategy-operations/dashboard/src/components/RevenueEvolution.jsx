@@ -1,4 +1,3 @@
-// src/components/RevenueEvolution.jsx
 import { useEffect, useState } from 'react';
 
 import {
@@ -100,18 +99,21 @@ function RevenueEvolution() {
    */
   const firstForecastMonth =
     sortedForecastData.length > 0
-      ? String(sortedForecastData[0].forecast_month)
+      ? String(sortedForecastData[0].forecast_month).slice(0, 7)
       : '';
 
-  /*
-   * Filtra meses anteriores ao forecast e a partir de 2017,
-   * para reduzir o efeito da cobertura parcial de 2016.
-   */
+  const forecastMonthSet = new Set(
+    sortedForecastData.map((item) =>
+      String(item.forecast_month).slice(0, 7),
+    ),
+  );
+
   const historicalData = sortedMonthlyRevenue.filter((item) => {
-    const purchaseMonth = String(item.purchase_month);
-    const purchaseYear = Number(String(purchaseMonth).split('-')[0]);
+    const purchaseMonth = String(item.purchase_month).slice(0, 7);
+    const purchaseYear = Number(item.purchase_year);
 
     return (
+      !forecastMonthSet.has(purchaseMonth) &&
       (!firstForecastMonth || purchaseMonth < firstForecastMonth) &&
       purchaseYear >= 2017
     );

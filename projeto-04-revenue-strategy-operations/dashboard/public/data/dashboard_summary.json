@@ -13,15 +13,15 @@
     "total_segments": 6
   },
   "forecast": {
-    "model_used": "moving_average_3m",
-    "training_window_start": "2017-01",
-    "training_window_end": "2018-08",
-    "test_window_start": "2018-05",
-    "test_window_end": "2018-07",
-    "approximate_error_rmse": 58426.52391038232,
+    "model_used": "Média móvel - 3 meses",
+    "training_window_start": "2017-01-01",
+    "training_window_end": "2018-08-01",
+    "test_window_start": "2018-05-01",
+    "test_window_end": "2018-08-01",
+    "approximate_error_rmse": 70182.48692307856,
     "forecast_horizon_months": 6,
-    "forecast_start_month": "2018-09",
-    "forecast_end_month": "2019-02",
+    "forecast_start_month": "2018-09-01",
+    "forecast_end_month": "2019-02-01",
     "forecast_total_gross_revenue": 6169427.22
   }
 }

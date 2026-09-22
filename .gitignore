@@ -365,3 +365,6 @@ projeto-04-revenue-strategy-operations/dashboard/.oxlintrc.json
 # Ignorar a pasta 'src' diretamente dentro de projeto-04-revenue-strategy-operations
 projeto-04-revenue-strategy-operations/src/
 
+
+# Documentação de controle pessoal do Projeto 4
+/projeto-04-revenue-strategy-operations/docs/

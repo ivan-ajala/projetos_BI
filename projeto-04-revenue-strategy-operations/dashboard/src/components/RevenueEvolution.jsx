@@ -1,6 +1,5 @@
 // src/components/RevenueEvolution.jsx
-import React, { useEffect, useState } from 'react';
-import Navigation from './Navigation';
+import { useEffect, useState } from 'react';
 
 import {
   formatCurrency,
@@ -96,7 +95,7 @@ function RevenueEvolution() {
   );
 
   /*
-   * O primeiro mês do forecast é 2018-09.
+   * O primeiro mês do forecast é o mês seguinte ao fim do histórico.
    * O histórico exibido deve conter somente meses anteriores.
    */
   const firstForecastMonth =
@@ -105,15 +104,13 @@ function RevenueEvolution() {
       : '';
 
   /*
-   * IMPORTANTE:
-   * Este filtro exclui setembro e outubro de 2018 do histórico.
-   * Portanto, R$ 19,62 não será considerado nos KPIs.
+   * Filtra meses anteriores ao forecast e a partir de 2017,
+   * para reduzir o efeito da cobertura parcial de 2016.
    */
   const historicalData = sortedMonthlyRevenue.filter((item) => {
     const purchaseMonth = String(item.purchase_month);
-    const purchaseYear = Number(item.purchase_year);
+    const purchaseYear = Number(String(purchaseMonth).split('-')[0]);
 
-    // Filtra meses anteriores ao forecast E anos a partir de 2017
     return (
       (!firstForecastMonth || purchaseMonth < firstForecastMonth) &&
       purchaseYear >= 2017
@@ -138,9 +135,6 @@ function RevenueEvolution() {
 
   /*
    * KPI: menor receita mensal histórica
-   *
-   * O cálculo usa historicalData, e não monthlyRevenue.
-   * Essa é a correção que remove o valor de outubro/2018.
    */
   const minHistoricalRevenue =
     historicalPositiveRevenues.length > 0
@@ -150,16 +144,15 @@ function RevenueEvolution() {
   /*
    * Crescimento médio mensal histórico
    */
-  const historicalRevenues = historicalData
-    .filter((item) => Number(item.purchase_year) >= 2017)
-    .map((item) => Number(item.gross_revenue))
-    .filter((value) => Number.isFinite(value) && value > 0);
-
   const monthlyGrowthRates = [];
 
-  for (let index = 1; index < historicalRevenues.length; index += 1) {
-    const previousRevenue = historicalRevenues[index - 1];
-    const currentRevenue = historicalRevenues[index];
+  for (
+    let index = 1;
+    index < historicalPositiveRevenues.length;
+    index += 1
+  ) {
+    const previousRevenue = historicalPositiveRevenues[index - 1];
+    const currentRevenue = historicalPositiveRevenues[index];
 
     if (previousRevenue > 0) {
       const growthRate =
@@ -261,382 +254,373 @@ function RevenueEvolution() {
 
   const filteredTableData = (() => {
     if (tableFilter === 'historical') {
-    return chartData.filter((item) => item.type === 'Histórico');
-  }
-  
-  if (tableFilter === 'projection') {
-    return chartData.filter((item) => item.type === 'Projeção');
-  }
+      return chartData.filter((item) => item.type === 'Histórico');
+    }
 
-  if (tableFilter === 'last12months') {
-    return chartData.slice(-12);
-  }
+    if (tableFilter === 'projection') {
+      return chartData.filter((item) => item.type === 'Projeção');
+    }
 
-  return chartData;
-})();
+    if (tableFilter === 'last12months') {
+      return chartData.slice(-12);
+    }
+
+    return chartData;
+  })();
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div className="header-brand">
-          <img
-            src="/ia-datia-logo.png"
-            alt="Logo datIA"
-            className="header-logo"
-          />
-          <div className="header-title">
-            <h1>Evolução da Receita</h1>
-            <p>Análise histórica e projeção mensal</p>
-          </div>
-        </div>
-        <div className="header-period">
-          Período: {formatMonthYear(firstMonth)} — {formatMonthYear(lastMonth)}
-        </div>
-      </header>
-
-      <Navigation />
-
-      <main className="dashboard-main">
-        <section className="dashboard-section">
-          <div className="section-heading">
+    <>
+      <section className="dashboard-section">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">ANÁLISE HISTÓRICA</p>
             <h2>KPIs de Evolução</h2>
           </div>
-          <div className="kpi-grid">
-            <KpiCard
-              label="Maior Receita Mensal"
-              value={formatCurrency(maxHistoricalRevenue)}
-              accent="blue"
-            />
 
-            <KpiCard
-              label="Menor Receita Mensal"
-              value={formatCurrency(minHistoricalRevenue)}
-              accent="orange"
-            />
+          <span className="section-meta">
+            {formatMonthYear(firstMonth)} — {formatMonthYear(lastMonth)}
+          </span>
+        </div>
 
-            <KpiCard
-              label="Crescimento Médio Mensal"
-              value={
-                averageMonthlyGrowth !== null
-                  ? `${(
-                      averageMonthlyGrowth * 100
-                    ).toLocaleString('pt-BR', {
-                      minimumFractionDigits: 1,
-                      maximumFractionDigits: 1,
-                    })}%`
-                  : '—'
-              }
-              accent="green"
-            />
+        <div className="kpi-grid">
+          <KpiCard
+            label="Maior Receita Mensal"
+            value={formatCurrency(maxHistoricalRevenue)}
+            accent="blue"
+          />
 
-            <KpiCard
-              label="Receita Próximo Mês"
-              value={formatCurrency(nextMonthForecast)}
-              accent="purple"
-            />
-          </div>
-        </section>
+          <KpiCard
+            label="Menor Receita Mensal"
+            value={formatCurrency(minHistoricalRevenue)}
+            accent="orange"
+          />
 
-        <section className="dashboard-section">
-          <div className="section-heading">
+          <KpiCard
+            label="Crescimento Médio Mensal"
+            value={
+              averageMonthlyGrowth !== null
+                ? `${(
+                    averageMonthlyGrowth * 100
+                  ).toLocaleString('pt-BR', {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1,
+                  })}%`
+                : '—'
+            }
+            accent="green"
+          />
+
+          <KpiCard
+            label="Receita Próximo Mês"
+            value={formatCurrency(nextMonthForecast)}
+            accent="purple"
+          />
+        </div>
+      </section>
+
+      <section className="dashboard-section">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">VISUALIZAÇÃO</p>
             <h2>Gráfico de Evolução</h2>
           </div>
+        </div>
 
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={400}>
-              <AreaChart
-                data={chartData}
-                margin={{
-                  top: 10,
-                  right: 30,
-                  left: 85,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="#ccc"
-                />
+        <div className="chart-container">
+          <ResponsiveContainer width="100%" height={400}>
+            <AreaChart
+              data={chartData}
+              margin={{
+                top: 10,
+                right: 30,
+                left: 85,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#ccc"
+              />
 
-                <XAxis
-                  dataKey="month"
-                  tickFormatter={(tick) =>
-                    formatMonthYear(tick)
-                  }
-                  angle={-45}
-                  textAnchor="end"
-                  height={80}
-                  interval="preserveStartEnd"
-                />
+              <XAxis
+                dataKey="month"
+                tickFormatter={(tick) =>
+                  formatMonthYear(tick)
+                }
+                angle={-45}
+                textAnchor="end"
+                height={80}
+                interval="preserveStartEnd"
+              />
 
-                <YAxis
-                  width={85}
-                  tickFormatter={(tick) =>
-                    formatCurrency(tick)
-                  }
-                  domain={['auto', 'auto']}
-                />
+              <YAxis
+                width={85}
+                tickFormatter={(tick) =>
+                  formatCurrency(tick)
+                }
+                domain={['auto', 'auto']}
+              />
 
-                <Tooltip
-                  labelFormatter={(label) =>
-                    formatMonthYear(label)
-                  }
-                  formatter={(value, name, item) => {
-                    if (
-                      name === 'Receita Histórica' ||
-                      name === 'Receita Projetada'
-                    ) {
-                      return [
-                        formatCurrency(value),
-                        name,
-                      ];
-                    }
-
-                    if (name === 'Faixa de Confiança') {
-                      const dataPoint = item?.payload;
-
-                      if (
-                        dataPoint &&
-                        Number.isFinite(dataPoint.lowerBound) &&
-                        Number.isFinite(dataPoint.upperBound)
-                      ) {
-                        return [
-                          `${formatCurrency(
-                            dataPoint.lowerBound,
-                          )} - ${formatCurrency(
-                            dataPoint.upperBound,
-                          )}`,
-                          'Faixa de Confiança',
-                        ];
-                      }
-                    }
-
+              <Tooltip
+                labelFormatter={(label) =>
+                  formatMonthYear(label)
+                }
+                formatter={(value, name, item) => {
+                  if (
+                    name === 'Receita Histórica' ||
+                    name === 'Receita Projetada'
+                  ) {
                     return [
                       formatCurrency(value),
                       name,
                     ];
-                  }}
-                />
+                  }
 
-                <Legend />
+                  if (name === 'Faixa de Confiança') {
+                    const dataPoint = item?.payload;
 
-                {/* Base inferior invisível da faixa */}
-                <Area
-                  type="monotone"
-                  dataKey="lowerBound"
-                  stackId="confidence"
-                  stroke="none"
-                  fill="transparent"
-                  fillOpacity={0}
-                  legendType="none"
-                  isAnimationActive={false}
-                  connectNulls={false}
-                />
+                    if (
+                      dataPoint &&
+                      Number.isFinite(dataPoint.lowerBound) &&
+                      Number.isFinite(dataPoint.upperBound)
+                    ) {
+                      return [
+                        `${formatCurrency(
+                          dataPoint.lowerBound,
+                        )} - ${formatCurrency(
+                          dataPoint.upperBound,
+                        )}`,
+                        'Faixa de Confiança',
+                      ];
+                    }
+                  }
 
-                {/* Área entre os limites inferior e superior */}
-                <Area
-                  type="monotone"
-                  dataKey="confidenceRange"
-                  stackId="confidence"
-                  stroke="none"
-                  fill="#b8bec7"
-                  fillOpacity={0.35}
-                  name="Faixa de Confiança"
-                  isAnimationActive={false}
-                  connectNulls={false}
-                />
+                  return [
+                    formatCurrency(value),
+                    name,
+                  ];
+                }}
+              />
 
-                {/* Receita histórica */}
-                <Line
-                  type="monotone"
-                  dataKey="historicalRevenue"
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                  name="Receita Histórica"
-                  dot={false}
-                  isAnimationActive={false}
-                  connectNulls={false}
-                />
+              <Legend />
 
-                {/* Receita projetada */}
-                <Line
-                  type="monotone"
-                  dataKey="forecastRevenue"
-                  stroke="#82ca9d"
-                  strokeWidth={2}
-                  strokeDasharray="6 4"
-                  name="Receita Projetada"
-                  dot={false}
-                  isAnimationActive={false}
-                  connectNulls={false}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+              {/* Base inferior invisível da faixa */}
+              <Area
+                type="monotone"
+                dataKey="lowerBound"
+                stackId="confidence"
+                stroke="none"
+                fill="transparent"
+                fillOpacity={0}
+                legendType="none"
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+
+              {/* Área entre os limites inferior e superior */}
+              <Area
+                type="monotone"
+                dataKey="confidenceRange"
+                stackId="confidence"
+                stroke="none"
+                fill="#b8bec7"
+                fillOpacity={0.35}
+                name="Faixa de Confiança"
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+
+              {/* Receita histórica */}
+              <Line
+                type="monotone"
+                dataKey="historicalRevenue"
+                stroke="#8884d8"
+                strokeWidth={2}
+                name="Receita Histórica"
+                dot={false}
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+
+              {/* Receita projetada */}
+              <Line
+                type="monotone"
+                dataKey="forecastRevenue"
+                stroke="#82ca9d"
+                strokeWidth={2}
+                strokeDasharray="6 4"
+                name="Receita Projetada"
+                dot={false}
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </section>
+
+      <section className="dashboard-section">
+        <div className="section-heading table-section-heading">
+          <div>
+            <p className="section-kicker">DETALHAMENTO</p>
+            <h2>Dados Detalhados</h2>
+            <p className="section-description">
+              Histórico e projeção mensal da receita bruta.
+            </p>
           </div>
-        </section>
 
-        <section className="dashboard-section">
-  <div className="section-heading table-section-heading">
-    <div>
-      <h2>Dados Detalhados</h2>
-      <p className="section-description">
-        Histórico e projeção mensal da receita bruta.
-      </p>
-    </div>
+          <div className="table-filters">
+            <button
+              type="button"
+              className={`filter-button ${
+                tableFilter === 'all' ? 'active' : ''
+              }`}
+              onClick={() => setTableFilter('all')}
+            >
+              Todos
+            </button>
 
-    <div className="table-filters">
-      <button
-        type="button"
-        className={`filter-button ${
-          tableFilter === 'all' ? 'active' : ''
-        }`}
-        onClick={() => setTableFilter('all')}
-      >
-        Todos
-      </button>
+            <button
+              type="button"
+              className={`filter-button ${
+                tableFilter === 'historical' ? 'active' : ''
+              }`}
+              onClick={() => setTableFilter('historical')}
+            >
+              Histórico
+            </button>
 
-      <button
-        type="button"
-        className={`filter-button ${
-          tableFilter === 'historical' ? 'active' : ''
-        }`}
-        onClick={() => setTableFilter('historical')}
-      >
-        Histórico
-      </button>
+            <button
+              type="button"
+              className={`filter-button ${
+                tableFilter === 'projection' ? 'active' : ''
+              }`}
+              onClick={() => setTableFilter('projection')}
+            >
+              Projeção
+            </button>
 
-      <button
-        type="button"
-        className={`filter-button ${
-          tableFilter === 'projection' ? 'active' : ''
-        }`}
-        onClick={() => setTableFilter('projection')}
-      >
-        Projeção
-      </button>
+            <button
+              type="button"
+              className={`filter-button ${
+                tableFilter === 'last12months' ? 'active' : ''
+              }`}
+              onClick={() => setTableFilter('last12months')}
+            >
+              Últimos 12 meses
+            </button>
+          </div>
+        </div>
 
-      <button
-        type="button"
-        className={`filter-button ${
-          tableFilter === 'last12months' ? 'active' : ''
-        }`}
-        onClick={() => setTableFilter('last12months')}
-      >
-        Últimos 12 meses
-      </button>
-    </div>
-  </div>
+        <div className="revenue-table-container">
+          <table className="revenue-table">
+            <thead>
+              <tr>
+                <th>Mês</th>
+                <th>Tipo</th>
+                <th>Receita</th>
+                <th>Limite Inferior</th>
+                <th>Limite Superior</th>
+                <th>Variação</th>
+              </tr>
+            </thead>
 
-  <div className="table-container revenue-table-container">
-    <table className="revenue-table">
-      <thead>
-        <tr>
-          <th>Mês</th>
-          <th>Tipo</th>
-          <th>Receita</th>
-          <th>Limite Inferior</th>
-          <th>Limite Superior</th>
-          <th>Variação</th>
-        </tr>
-      </thead>
+            <tbody>
+              {filteredTableData.map((row) => {
+                const currentRevenue =
+                  row.historicalRevenue ?? row.forecastRevenue;
 
-      <tbody>
-        {filteredTableData.map((row) => {
-          const currentRevenue =
-            row.historicalRevenue ?? row.forecastRevenue;
+                const originalIndex = chartData.findIndex(
+                  (item) =>
+                    item.month === row.month &&
+                    item.type === row.type,
+                );
 
-          const originalIndex = chartData.findIndex(
-            (item) =>
-              item.month === row.month &&
-              item.type === row.type,
-          );
+                const previousRow =
+                  originalIndex > 0
+                    ? chartData[originalIndex - 1]
+                    : null;
 
-          const previousRow =
-            originalIndex > 0
-              ? chartData[originalIndex - 1]
-              : null;
+                const previousRevenue = previousRow
+                  ? previousRow.historicalRevenue ??
+                    previousRow.forecastRevenue
+                  : undefined;
 
-          const previousRevenue = previousRow
-            ? previousRow.historicalRevenue ??
-              previousRow.forecastRevenue
-            : undefined;
+                const variation =
+                  Number.isFinite(currentRevenue) &&
+                  Number.isFinite(previousRevenue) &&
+                  previousRevenue !== 0
+                    ? (currentRevenue - previousRevenue) /
+                      previousRevenue
+                    : undefined;
 
-          const variation =
-            Number.isFinite(currentRevenue) &&
-            Number.isFinite(previousRevenue) &&
-            previousRevenue !== 0
-              ? (currentRevenue - previousRevenue) /
-                previousRevenue
-              : undefined;
+                const isProjection = row.type === 'Projeção';
 
-          const isProjection = row.type === 'Projeção';
+                return (
+                  <tr key={`${row.month}-${row.type}`}>
+                    <td className="month-cell">
+                      {formatMonthYear(row.month)}
+                    </td>
 
-          return (
-            <tr key={`${row.month}-${row.type}`}>
-              <td className="month-cell">
-                {formatMonthYear(row.month)}
-              </td>
+                    <td>
+                      <span
+                        className={`data-type-badge ${
+                          isProjection
+                            ? 'projection-badge'
+                            : 'historical-badge'
+                        }`}
+                      >
+                        {isProjection ? 'Projeção' : 'Histórico'}
+                      </span>
+                    </td>
 
-              <td>
-                <span
-                  className={`data-type-badge ${
-                    isProjection
-                      ? 'projection-badge'
-                      : 'historical-badge'
-                  }`}
-                >
-                  {isProjection ? 'Projeção' : 'Histórico'}
-                </span>
-              </td>
+                    <td className="currency-cell">
+                      {Number.isFinite(currentRevenue)
+                        ? formatCurrency(currentRevenue)
+                        : '—'}
+                    </td>
 
-              <td className="currency-cell">
-                {Number.isFinite(currentRevenue)
-                  ? formatCurrency(currentRevenue)
-                  : '—'}
-              </td>
+                    <td className="currency-cell">
+                      {isProjection &&
+                      Number.isFinite(row.lowerBound)
+                        ? formatCurrency(row.lowerBound)
+                        : '—'}
+                    </td>
 
-              <td className="currency-cell">
-                {isProjection &&
-                Number.isFinite(row.lowerBound)
-                  ? formatCurrency(row.lowerBound)
-                  : '—'}
-              </td>
+                    <td className="currency-cell">
+                      {isProjection &&
+                      Number.isFinite(row.upperBound)
+                        ? formatCurrency(row.upperBound)
+                        : '—'}
+                    </td>
 
-              <td className="currency-cell">
-                {isProjection &&
-                Number.isFinite(row.upperBound)
-                  ? formatCurrency(row.upperBound)
-                  : '—'}
-              </td>
-
-              <td
-                className={
-                  Number.isFinite(variation)
-                    ? variation >= 0
-                      ? 'positive-variation'
-                      : 'negative-variation'
-                    : ''
-                }
-              >
-                {Number.isFinite(variation)
-                  ? `${(variation * 100).toLocaleString(
-                      'pt-BR',
-                      {
-                        minimumFractionDigits: 1,
-                        maximumFractionDigits: 1,
-                      },
-                    )}%`
-                  : '—'}
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </div>
-</section>
-      </main>
-    </div>
+                    <td
+                      className={
+                        Number.isFinite(variation)
+                          ? variation >= 0
+                            ? 'positive-variation'
+                            : 'negative-variation'
+                          : ''
+                      }
+                    >
+                      {Number.isFinite(variation)
+                        ? `${(variation * 100).toLocaleString(
+                            'pt-BR',
+                            {
+                              minimumFractionDigits: 1,
+                              maximumFractionDigits: 1,
+                            },
+                          )}%`
+                        : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -811,3 +811,30 @@
     flex: 1;
   }
 }
+
+/* Rodapé */
+
+.dashboard-footer {
+  padding: 1.5rem clamp(1.25rem, 5vw, 5rem);
+  text-align: center;
+  color: #667085;
+  background: #ffffff;
+  border-top: 1px solid #e4eaf1;
+}
+
+.dashboard-footer p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 520px) {
+  .dashboard-footer {
+    padding: 1.25rem 1rem;
+  }
+
+  .dashboard-footer p {
+    font-size: 0.78rem;
+  }
+}

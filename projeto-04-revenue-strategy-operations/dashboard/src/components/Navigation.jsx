@@ -1,29 +1,32 @@
-function Navigation() {
-  const currentHash = window.location.hash || '#/visao-executiva';
+import { NavLink } from "react-router-dom";
 
+function Navigation() {
   return (
-    <nav className="dashboard-navigation" aria-label="Navegação principal">
-      <a
-        href="#/visao-executiva"
-        className={
-          currentHash === '#/visao-executiva' || currentHash === '#/'
-            ? 'navigation-link active'
-            : 'navigation-link'
+    <nav
+      className="dashboard-navigation"
+      aria-label="Navegação principal"
+    >
+      <NavLink
+        to="/visao-executiva"
+        className={({ isActive }) =>
+          isActive
+            ? "navigation-link active"
+            : "navigation-link"
         }
       >
         Visão Executiva
-      </a>
+      </NavLink>
 
-      <a
-        href="#/evolucao-receita"
-        className={
-          currentHash === '#/evolucao-receita'
-            ? 'navigation-link active'
-            : 'navigation-link'
+      <NavLink
+        to="/evolucao-receita"
+        className={({ isActive }) =>
+          isActive
+            ? "navigation-link active"
+            : "navigation-link"
         }
       >
         Evolução da Receita
-      </a>
+      </NavLink>
     </nav>
   );
 }

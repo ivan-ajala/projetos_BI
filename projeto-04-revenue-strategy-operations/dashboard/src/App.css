@@ -133,7 +133,7 @@
 
 .kpi-grid-small {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  max-width: 590px;
+  max-width: none;
 }
 
 .kpi-card {
@@ -812,29 +812,32 @@
   }
 }
 
-/* Rodapé */
+/* Rodapé global do dashboard */
 
 .dashboard-footer {
-  padding: 1.5rem clamp(1.25rem, 5vw, 5rem);
+  width: 100%;
+  padding: 1.15rem 1.25rem;
+  color: #8a97a8;
+  background: #f8fafc;
+  border-top: 1px solid #e6ebf1;
   text-align: center;
-  color: #667085;
-  background: #ffffff;
-  border-top: 1px solid #e4eaf1;
 }
 
 .dashboard-footer p {
   margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
+  color: inherit;
+  font-size: 0.76rem;
+  font-weight: 400;
   letter-spacing: 0.01em;
+  line-height: 1.5;
 }
 
 @media (max-width: 520px) {
   .dashboard-footer {
-    padding: 1.25rem 1rem;
+    padding: 1rem;
   }
 
   .dashboard-footer p {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
 }

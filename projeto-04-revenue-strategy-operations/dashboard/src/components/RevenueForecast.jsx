@@ -206,26 +206,7 @@ const RevenueForecast = () => {
 
   return (
     <div className="revenue-forecast-container">
-      <div className="revenue-forecast-info">
-        <p>
-          <strong>Modelo utilizado:</strong> {modelInfo.model_used}
-        </p>
-        <p>
-          <strong>Período de treinamento:</strong>{" "}
-          {formatMonth(modelInfo.training_window_start)} a{" "}
-          {formatMonth(modelInfo.training_window_end)}
-        </p>
-        <p>
-          <strong>Erro aproximado (RMSE):</strong>{" "}
-          {formatCurrency(modelInfo.approximate_error_rmse)}
-        </p>
-        {modelInfo.model_used === "Média móvel - 3 meses" && (
-          <p className="revenue-forecast-note">
-            * A projeção utiliza a média móvel dos três últimos meses disponíveis. Como o modelo selecionado é um baseline sem tendência ou sazonalidade, o mesmo valor estimado é repetido ao longo do horizonte projetado.
-          </p>
-        )}
-      </div>
-
+   
       <ResponsiveContainer width="100%" height={400}>
         <AreaChart
           data={chartData}
@@ -298,6 +279,22 @@ const RevenueForecast = () => {
           />
         </AreaChart>
       </ResponsiveContainer>
+
+      <div className="revenue-forecast-note">
+        <div className="revenue-forecast-note-header">
+          <h3>Nota metodológica</h3>
+
+          {modelInfo.model_used === "Média móvel - 3 meses" && (
+            <span className="baseline-badge">Baseline</span>
+          )}
+        </div>
+
+        <p>
+          A projeção utiliza a média móvel dos três últimos meses disponíveis.
+          Como esse modelo não incorpora tendência ou sazonalidade, o mesmo
+          valor estimado é repetido ao longo do horizonte projetado.
+        </p>
+      </div>
 
       <div className="revenue-forecast-table-container">
         <h3>Detalhes da Projeção</h3>

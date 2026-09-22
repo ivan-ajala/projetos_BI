@@ -1,5 +1,3 @@
-/* src/components/RevenueForecast.css */
-
 .revenue-forecast-container {
   background-color: #ffffff;
   border-radius: 8px;
@@ -25,23 +23,104 @@
   font-weight: 500;
 }
 
-.revenue-forecast-info p {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-.revenue-forecast-info strong {
-  color: #333;
-}
+/* Nota metodológica do forecast */
 
 .revenue-forecast-note {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 10px;
-  padding-left: 10px;
-  border-left: 3px solid #ddd;
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: #f8fafc;
+  border: 1px solid #e1e8f0;
+  border-left: 4px solid #2c91c9;
+  border-radius: 10px;
+}
+
+.revenue-forecast-note-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.revenue-forecast-note-header h3 {
+  margin: 0;
+  color: #344054;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.revenue-forecast-note p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Selo discreto para identificar o modelo baseline */
+
+.baseline-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 9px;
+  color: #175cd3;
+  background: #eff8ff;
+  border: 1px solid #b2ddff;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}/* Nota metodológica do forecast */
+
+.revenue-forecast-note {
+  margin-top: 24px;
+  padding: 18px 20px;
+  background: #f8fafc;
+  border: 1px solid #e1e8f0;
+  border-left: 4px solid #2c91c9;
+  border-radius: 10px;
+}
+
+.revenue-forecast-note-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.revenue-forecast-note-header h3 {
+  margin: 0;
+  color: #344054;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.revenue-forecast-note p {
+  margin: 0;
+  color: #667085;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Selo discreto para identificar o modelo baseline */
+
+.baseline-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 9px;
+  color: #175cd3;
+  background: #eff8ff;
+  border: 1px solid #b2ddff;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .recharts-wrapper {
@@ -88,4 +167,20 @@
   border: 1px solid #c24141;
   padding: 15px;
   border-radius: 8px;
+}
+
+@media (max-width: 520px) {
+  .revenue-forecast-note {
+    padding: 16px;
+  }
+
+  .revenue-forecast-note-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .revenue-forecast-note p {
+    font-size: 0.86rem;
+  }
 }

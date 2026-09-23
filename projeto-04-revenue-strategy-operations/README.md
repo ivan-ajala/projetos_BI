@@ -494,7 +494,7 @@ notebooks/
 ├── 04_revenue_analysis.ipynb
 ├── 04_revenue_forecast_model_comparison.ipynb
 ├── 05_customer_rfv_ltv.ipynb
-├── 06_forecasting..ipynb
+├── 06_forecasting.ipynb
 └── 07_dashboard_metrics.ipynb
 ├── dashboard/
 │   ├── public/

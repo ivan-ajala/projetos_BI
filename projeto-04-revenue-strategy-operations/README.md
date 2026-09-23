@@ -487,9 +487,15 @@ projeto-04-revenue-strategy-operations/
 │   └── processed/
 │       ├── monthly_revenue.csv
 │       └── revenue_forecast.csv
-├── notebooks/
-│   ├── 04_revenue_forecast_model_comparison.ipynb
-│   └── 07_dashboard_metrics.ipynb
+notebooks/
+├── 01_data_ingestion.ipynb
+├── 02_data_quality.ipynb
+├── 03_revenue_reconciliation.ipynb
+├── 04_revenue_analysis.ipynb
+├── 04_revenue_forecast_model_comparison.ipynb
+├── 05_customer_rfv_ltv.ipynb
+├── 06_forecasting..ipynb
+└── 07_dashboard_metrics.ipynb
 ├── dashboard/
 │   ├── public/
 │   │   └── data/

@@ -2,7 +2,7 @@
 
 ---
 
-[![Portfólio Data Science](https://img.shields.io/badge/Portfólio-Data_Science-2E86C1)](https://github.com/ivan-ajala/projetos_BI/blob/main/README.md)
+[![Portfólio Data Science & Analytics](https://img.shields.io/badge/Portfólio-Data_Science-2E86C1)](https://github.com/ivan-ajala/projetos_BI/blob/main/README.md)
 [![GitHub](https://img.shields.io/badge/GitHub-Projetos_Completos-181717)](https://github.com/ivan-ajala/projetos_BI)
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Machine Learning](https://img.shields.io/badge/Machine_Learning-Production_Ready-FF6F00)](https://scikit-learn.org/)
@@ -42,12 +42,6 @@ O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dado
 | **Desenvolvimento Web** | React, Vite, HTML, CSS                              |
 | **Versionamento**| Git, GitHub                                               |
 | **Metodologias** | ETL, Data Modeling, Análise Exploratória, Modelagem Preditiva, KPI Design, Storytelling com Dados |
-
-https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white 
-https://img.shields.io/badge/SQL-4479A1?logo=mysql&logoColor=white 
-https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black
-
-[![Portfólio Data Science](https://img.shields.io/badge/Portfólio-Data_Science-2E86C1)](https://github.com/IvanAjala/ivan-ajala-ds-portfolio)
 
 ---
 

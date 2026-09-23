@@ -487,15 +487,15 @@ projeto-04-revenue-strategy-operations/
 │   └── processed/
 │       ├── monthly_revenue.csv
 │       └── revenue_forecast.csv
-notebooks/
-├── 01_data_ingestion.ipynb
-├── 02_data_quality.ipynb
-├── 03_revenue_reconciliation.ipynb
-├── 04_revenue_analysis.ipynb
-├── 04_revenue_forecast_model_comparison.ipynb
-├── 05_customer_rfv_ltv.ipynb
-├── 06_forecasting.ipynb
-└── 07_dashboard_metrics.ipynb
+├──notebooks/
+│   ├──01_data_ingestion.ipynb
+│   ├── 02_data_quality.ipynb
+│   ├── 03_revenue_reconciliation.ipynb
+│   ├── 04_revenue_analysis.ipynb
+│   ├── 04_revenue_forecast_model_comparison.ipynb
+│   ├── 05_customer_rfv_ltv.ipynb
+│   ├── 06_forecasting.ipynb
+│   ├── 07_dashboard_metrics.ipynb
 ├── dashboard/
 │   ├── public/
 │   │   └── data/
@@ -517,12 +517,18 @@ notebooks/
 │   ├── package.json
 │   └── vite.config.js
 ├── screenshots/
-│   ├── 01-visao-executiva.png
-│   ├── 02-evolucao-receita.png
-│   └── 03-projecao-detalhes.png
-└── docs/
-    ├── dashboard-public.md
-    └── dashboard-internal.md
+│   ├── 01-visao-executiva_01.png
+│   ├── 01-visao-executiva_02.png
+│   ├── 01-visao-executiva_03.png
+│   ├── 01-visao-executiva_04.png
+│   ├── 01-visao-executiva_05.png
+│   ├── 01-visao-executiva_06.png
+│   ├── 02-evolucao-receita_1.png
+│   ├── 02-evolucao-receita_2.png
+│   ├── 03-projecao-detalhes_1.png
+│   ├── 03-projecao-detalhes_2.png
+│   ├── 03-projecao-detalhes_3.png
+
 ```
 
 ---
@@ -588,8 +594,7 @@ Possíveis evoluções incluem:
 
 ## 📈 Relação com Experiência Profissional
 
-Este projeto se conecta a diferentes competências de Revenue Strategy &
-Operations:
+Este projeto se conecta a diferentes competências em minha vivência profissional.
 
 ### Modelagem Preditiva de Receita
 
@@ -625,14 +630,8 @@ e lifetime value.
 
 Experiência com testes A/B para avaliar e otimizar estratégias comerciais.
 
-Os percentuais de **92% de acurácia**, **15% de aumento de margem**, **25% de
-aumento de conversão**, **30% de aumento de ROI** e **40% de aumento na
-eficácia de campanhas** devem ser associados aos respectivos projetos
-profissionais, não apresentados como resultados produzidos diretamente por este
-dashboard.
-
 ---
 
 ## 👤 Autor
 
-**Ivan** — Revenue Strategy & Operations | Project Management & Data Analyst
+**Ivan** — Revenue Strategy & Operations | Analista de Dados e Estratégia

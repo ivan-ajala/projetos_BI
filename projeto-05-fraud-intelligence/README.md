@@ -1,119 +1,128 @@
-# 🛡️ Relatório de Inteligência — Baseline de Risco PaySim
+# 🛡️ Projeto 05 — Inteligência e Prevenção a Fraudes
 
-**Projeto 05 · Inteligência e Prevenção a Fraudes**
+Estudo de caso autoral de portfólio sobre priorização de transações para análise, utilizando a base sintética PaySim. O projeto combina regras explicáveis, avaliação preditiva exploratória, simulação de capacidade operacional e um dashboard interativo para comunicar resultados.
 
-> **Natureza do trabalho:** estudo autoral de portfólio com dados sintéticos PaySim. Os resultados são retrospectivos e exploratórios. Não representam fraude real, uma operação financeira, desempenho em produção ou perdas evitadas.
-
----
-
-## 📌 Sumário Executivo
-
-Este estudo simula a priorização de transações para análise em uma empresa fictícia de pagamentos digitais. O trabalho compara um **baseline de regras explicáveis** com uma **regressão logística** e apresenta uma simulação hipotética de triagem.
-
-O **score de risco** soma sinais definidos por regras. O **limiar** é o score mínimo necessário para que uma transação gere um alerta. O limiar 2 foi adotado como **referência principal para apresentar e comparar os resultados**, não como política aprovada nem como limiar comprovadamente ideal.
-
-Na validação, o baseline com score ≥ 2 gerou **3.718 alertas**, com **31,7% de precisão** e **100,0% de recall**. No teste cronológico exploratório, gerou **2.790 alertas**, com **44,8% de precisão** e **99,9% de recall**.
-
-A comparação exploratória com regressão logística não demonstrou superioridade geral do modelo. No teste exploratório, a regressão sinalizou 2.298 casos e obteve recall de 65,2%; as regras sinalizaram 2.790 casos e obtiveram recall de 99,9%. Esses resultados se aplicam somente à base sintética, às variáveis e aos procedimentos deste estudo.
-
-A simulação de fila estimou que, no cenário-base de cinco analistas e limiar 2, a espera média seria de aproximadamente **261 minutos** e **20,41%** dos alertas iniciados começariam dentro do SLA hipotético. Isso sugere que a capacidade simulada não atenderia bem à meta definida no cenário. **Não é uma medição de uma operação real nem uma recomendação de dimensionamento de equipe.**
+> **Importante:** este projeto é um estudo de caso simulado. Não representa experiência profissional em prevenção a fraudes, dados de uma instituição financeira, uma operação real ou um modelo validado para produção.
 
 ---
 
-## 🎯 Objetivo e Cenário
+## 📌 Sobre o Projeto
 
-O cenário fictício considera uma empresa de pagamentos digitais que precisa:
+O projeto simula o desafio de uma empresa fictícia de pagamentos digitais que precisa identificar transações que merecem análise, organizar alertas e comunicar sinais de risco às equipes de Fraude, Operações e Segurança.
 
-- Identificar transações que merecem revisão;
-- Organizar alertas por prioridade e motivo;
-- Comparar a cobertura de fraudes rotuladas com o volume de alertas;
-- Explorar possíveis efeitos de uma capacidade de triagem hipotética;
-- Comunicar resultados, premissas e limitações às equipes de Fraude, Operações e Segurança.
+A proposta combina análise de dados e contexto operacional para explorar:
 
-A conexão com minha experiência profissional está nas competências transferíveis de **operações, estratégia, priorização, gestão de indicadores e comunicação analítica**. O projeto não representa experiência profissional anterior em prevenção a fraudes.
+- como regras simples e explicáveis podem priorizar transações;
+- como o volume de alertas se relaciona com precisão e recall;
+- como comparar regras de risco com um modelo preditivo;
+- como hipóteses de equipe, tempo de análise e SLA afetam uma fila simulada;
+- quais indicadores podem ser calculados com a base e quais exigiriam dados operacionais reais.
+
+O trabalho segue este fluxo:
+
+```text
+Base sintética PaySim
+        ↓
+Inspeção, qualidade e análise exploratória
+        ↓
+Identificação de padrões descritivos
+        ↓
+Baseline de regras explicáveis
+        ↓
+Comparação exploratória com regressão logística
+        ↓
+Simulação hipotética de triagem
+        ↓
+Relatório de inteligência e dashboard
+```
 
 ---
 
-## 🗃️ Fonte e Natureza dos Dados
+## 🎯 Problema de Negócio Simulado
 
-O estudo utiliza o conjunto **PaySim — Synthetic Financial Datasets for Fraud Detection**, disponibilizado no Kaggle:
+Uma empresa fictícia de pagamentos digitais deseja organizar transações que merecem análise, priorizar alertas e fornecer informações compreensíveis às equipes responsáveis pela revisão.
+
+O estudo explora perguntas como:
+
+- Quais sinais podem ser combinados em regras simples de priorização?
+- Qual é o compromisso entre volume de alertas e cobertura das fraudes rotuladas?
+- Como os resultados mudam entre janelas cronológicas?
+- Como uma hipótese de capacidade operacional afeta espera e fila?
+- Quais conclusões são possíveis com PaySim e quais dependem de dados que a base não contém?
+
+A aplicação a fraudes é demonstrativa. A conexão com minha experiência profissional está nas competências transferíveis de análise, operações, estratégia, priorização e comunicação de indicadores — não em experiência prévia no setor de prevenção a fraudes.
+
+---
+
+## 💼 Conexão com a Experiência Profissional
+
+| Competência em operações e estratégia | Como aparece no projeto |
+|---|---|
+| Estruturação de problemas | Tradução do cenário de negócio em sinais, regras e perguntas analíticas |
+| Priorização de trabalho | Organização de transações em níveis de risco para uma fila conceitual |
+| Gestão operacional | Simulação de capacidade, tempos de análise e níveis de serviço hipotéticos |
+| Gestão por indicadores | Análise de precisão, recall, falsos positivos, espera e pendências simuladas |
+| Comunicação analítica | Relatório e dashboard com resultados, ressalvas e limitações |
+| Governança | Separação entre métricas retrospectivas, premissas simuladas e dados indisponíveis |
+
+> O projeto não afirma experiência profissional em fraude. Ele demonstra como conhecimentos de operações, estratégia e análise podem ser aplicados a um novo domínio por meio de um estudo de caso.
+
+---
+
+## 🗃️ Dados Utilizados
+
+O projeto utiliza o conjunto **PaySim — Synthetic Financial Datasets for Fraud Detection**, disponibilizado no Kaggle:
 
 - [PaySim no Kaggle](https://www.kaggle.com/datasets/ealaxi/paysim1)
 
-PaySim é uma base sintética. Os registros não correspondem a transações de clientes reais nem a uma instituição financeira específica.
+PaySim é uma base sintética. Seus registros não são transações de clientes reais e não representam uma instituição financeira específica.
 
-### Limitações relevantes da base
+A base original não está incluída no repositório. Para executar o projeto:
 
-- `step` é um índice temporal sintético, não uma data de calendário;
-- A base não registra decisões de analistas, encaminhamentos ou resultados de investigações;
-- Não há horários operacionais reais de criação, início ou encerramento de alertas;
-- Não há SLAs observados, custos de triagem ou perdas financeiras reais;
-- Os rótulos permitem avaliações retrospectivas dentro da base, mas não comprovam desempenho em produção.
+1. Acesse a página do conjunto de dados no Kaggle.
+2. Baixe e extraia o arquivo conforme as instruções da plataforma.
+3. Confira os termos de uso vigentes antes de utilizar ou redistribuir dados.
+4. Coloque o CSV original em `data/raw/`.
+5. Consulte `data/README.md` para as instruções de localização e validação do arquivo.
 
----
+O projeto não redistribui a base original.
 
-## 🔢 Como Interpretar o Score e o Limiar
+### Limitações dos dados
 
-### O que é o score?
-
-O baseline atribui **um ponto para cada regra de risco atendida**, gerando uma pontuação de **0 a 3**. Quanto maior o score, maior o número de sinais identificados pelas regras. O score **não é uma probabilidade de fraude**.
-
-As três regras consideradas são:
-
-1. A transação é do tipo `TRANSFER` ou `CASH_OUT`;
-2. O valor é igual ou superior ao percentil 95 do tipo de transação, calculado no treino;
-3. O valor da transação é aproximadamente igual ao saldo anterior da conta de origem.
-
-As regras não utilizam `isFraud`, `isFlaggedFraud` nem os saldos posteriores à transação.
-
-### O que é o limiar?
-
-O **limiar** é o score mínimo necessário para que a transação seja sinalizada como alerta:
-
-| Limiar | Critério para gerar alerta |
-|---:|---|
-| 1 | Score igual ou superior a 1 |
-| 2 | Score igual ou superior a 2 |
-| 3 | Score igual ou superior a 3 |
-
-Como os limiares são cortes aplicados ao mesmo score, aumentar o limiar torna a seleção mais restrita. Assim, com as mesmas regras e dados:
-
-- Os alertas do limiar 3 são um subconjunto dos alertas do limiar 2;
-- Os alertas do limiar 2 são um subconjunto dos alertas do limiar 1.
-
-Isso **não significa** que o limiar mais alto necessariamente terá melhor precisão em outros dados ou períodos. O efeito deve ser verificado nas métricas observadas.
-
-### Vantagens e trade-offs
-
-| Limiar | Vantagem potencial | Trade-off potencial |
-|---|---|---|
-| **1 — mais abrangente** | Pode capturar mais casos suspeitos e reduzir o risco de deixar passar positivos rotulados. | Gera mais alertas e pode aumentar falsos positivos e esforço de análise. |
-| **2 — intermediário** | Serve como referência para comparar cobertura e volume. | Pode gerar falsos positivos e ainda deixar passar casos positivos, conforme os dados. |
-| **3 — mais restritivo** | Reduz o volume e seleciona apenas transações com score mais alto. | Pode deixar passar mais positivos que não acumularam pontos suficientes. |
-
-Essas são tendências conceituais. Precisão, recall e volume de alertas de cada limiar precisam ser calculados nos dados; não devem ser presumidos.
-
-### Por que o limiar 2 é a referência principal?
-
-O limiar 2 foi mantido como **referência principal para organizar a análise e comparar cenários**. Na validação, produziu 3.718 alertas, com recall de 100,0% e precisão de 31,7%. No teste exploratório, produziu 2.790 alertas, com recall de 99,9% e precisão de 44,8%.
-
-Esses resultados mostram que, **nessas partições da base sintética**, o baseline capturou quase todas as fraudes rotuladas — mas parte dos alertas não correspondia a um caso rotulado como fraude. Eles não demonstram que o limiar 2 seja o ideal para uma operação real.
-
-Além disso, a simulação de fila indicou que, com cinco analistas e esse limiar, apenas **20,41%** dos alertas iniciados começariam dentro do SLA hipotético. Portanto, a capacidade do cenário-base não atenderia adequadamente à meta assumida. Uma decisão operacional exigiria avaliar capacidade, prioridade, custo de falsos positivos e risco de deixar fraudes passar, utilizando dados operacionais apropriados.
-
-### Como explicar o limiar em uma entrevista
-
-> “O limiar define o score mínimo para uma transação virar alerta. No limiar 1, a abordagem é mais abrangente e tende a gerar mais alertas; no 3, é mais restritiva e pode reduzir o volume, mas também deixar passar mais casos positivos. Usei o limiar 2 como referência comparativa. Na validação, ele gerou 3.718 alertas, com recall de 100% e precisão de 31,7%. Isso não significa que seja universalmente o melhor: a simulação também indicou que a capacidade hipotética seria insuficiente para o SLA assumido. Em uma operação real, a decisão dependeria da capacidade disponível e do custo de cada tipo de erro.”
-
-> **Precisão** é a proporção dos alertas que correspondiam a fraude rotulada. **Recall** é a proporção das fraudes rotuladas que foram capturadas pelos alertas.
+- `step` é um índice temporal sintético, não uma data de calendário.
+- A base não registra decisões de analistas, encaminhamentos ou resultados de investigação.
+- Não há horários operacionais reais de criação, início ou encerramento de alertas.
+- Não há SLAs observados, custos de operação ou perdas financeiras reais.
+- Os rótulos permitem uma avaliação retrospectiva dentro do conjunto sintético, mas não demonstram desempenho em produção.
 
 ---
 
-## 🧪 Desenho da Avaliação
+## 🔄 Pipeline Analítico
 
-### Partições cronológicas
+O projeto está organizado em cinco notebooks:
 
-A divisão mantém cada `step` inteiro em uma única partição:
+1. **Inspeção e EDA**  
+   Verificação de estrutura, tipos, valores ausentes, duplicatas e distribuição do rótulo.
+
+2. **Padrões de fraude**  
+   Análise descritiva de transações por tipo, valor e etapa temporal.
+
+3. **Avaliação das regras de risco**  
+   Criação do baseline explicável, avaliação do limiar de referência e análise de sensibilidade.
+
+4. **Simulação da fila operacional**  
+   Simulação hipotética de triagem, capacidade, espera, pendências e aderência a SLAs definidos como premissas.
+
+5. **Comparação preditiva**  
+   Comparação exploratória entre o baseline de regras e uma regressão logística ponderada.
+
+---
+
+## 🧪 Metodologia
+
+### Divisão cronológica
+
+A base é dividida por `step`, mantendo cada etapa inteira em uma única partição:
 
 | Partição | Intervalo de `step` |
 |---|---:|
@@ -121,64 +130,65 @@ A divisão mantém cada `step` inteiro em uma única partição:
 | Validação | 521–631 |
 | Teste exploratório | 632–743 |
 
-A divisão temporal ajuda a observar o comportamento em períodos diferentes. No entanto, a EDA já examinou rótulos de todos os períodos. Portanto, a partição final é um **backtest exploratório**, não um teste cego ou uma avaliação independente.
+A divisão cronológica permite observar diferenças entre períodos. No entanto, a EDA já examinou os rótulos de todas as janelas. Portanto, o teste é um **backtest exploratório**, não um teste cego ou uma avaliação independente.
 
-### Avaliação das regras
+### Baseline de regras explicáveis
 
-O percentil 95 do valor por tipo de transação é calculado somente no treino. Esse valor é usado na regra de risco para pontuar as demais partições.
+O baseline soma até três sinais e gera um score de risco de **0 a 3**:
 
-O limiar 2 é mantido como referência principal. Os limiares 1 e 3 são apresentados como **análise de sensibilidade**, para mostrar como o volume de alertas e as métricas se alteram conforme o corte.
+1. Tipo de transação `TRANSFER` ou `CASH_OUT`.
+2. Valor igual ou superior ao percentil 95 do tipo de transação, calculado no treino.
+3. Valor aproximadamente igual ao saldo anterior da conta de origem.
+
+As regras não utilizam `isFraud`, `isFlaggedFraud` nem os saldos posteriores à transação. O limiar **score ≥ 2** é a referência principal do estudo.
+
+Os limiares 1 e 3 são apresentados como análise de sensibilidade; não são políticas operacionais aprovadas.
 
 ### Comparação com regressão logística
 
-O modelo é uma regressão logística com ponderação para a classe minoritária. As variáveis são selecionadas explicitamente; o modelo exclui o rótulo, a sinalização preexistente, identificadores e saldos posteriores à transação.
+A comparação utiliza uma regressão logística com ponderação para a classe minoritária. O limiar do modelo é escolhido somente na validação para aproximar o volume de alertas do baseline com score ≥ 2 nessa partição. O mesmo limiar numérico é aplicado ao teste exploratório.
 
-O corte do modelo é escolhido na validação para aproximar o volume de alertas do baseline com score ≥ 2 nessa partição. O mesmo corte numérico é mantido no teste exploratório. Essa comparação sob um volume de referência **não define uma capacidade operacional aceitável**.
-
-Os scores da regressão logística não são tratados como probabilidades calibradas.
+Esse procedimento permite uma comparação sob um volume de referência, mas não define uma capacidade aceitável para uma operação. Os scores do modelo não são probabilidades calibradas.
 
 ### Métricas
 
-A análise apresenta:
+A avaliação considera:
 
-- Volume e taxa de alertas;
-- Precisão e recall;
+- volume e taxa de alertas;
+- precisão;
+- recall;
 - F1;
-- Falsos positivos e falsos negativos;
+- falsos positivos e falsos negativos;
 - Average Precision (AP).
 
-A acurácia não é a métrica principal, pois a classe fraudulenta é minoritária.
+A acurácia não é usada como métrica principal, pois a fraude é uma classe minoritária na base.
 
 ---
 
-## 📊 Resultados do Baseline de Regras
+## 📊 Resultados de Referência — Baseline de Regras
 
-### Limiar 2 — referência principal
+Com score ≥ 2, os resultados documentados foram:
 
 | Período | Transações | Alertas | Taxa de alertas | Precisão | Recall | Falsos positivos | Falsos negativos |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Validação | 191.147 | 3.718 | 1,945% | 31,7% | 100,0% | 2.538 | 0 |
-| Teste cronológico exploratório | 89.466 | 2.790 | 3,119% | 44,8% | 99,9% | 1.539 | 1 |
+| Teste exploratório | 89.466 | 2.790 | 3,119% | 44,8% | 99,9% | 1.539 | 1 |
 
-A carga relativa de alertas e a precisão variam entre as partições. Não se deve presumir que o volume ou o desempenho permaneceriam estáveis em outros períodos ou em uma operação real.
+A prevalência observada aumenta de **0,095% no treino** para **0,617% na validação** e **1,399% no teste exploratório**. Essa variação descreve a base PaySim e não deve ser interpretada como uma tendência de fraude real.
 
-A prevalência observada aumenta de **0,095% no treino** para **0,617% na validação** e **1,399% no teste exploratório**. Essa mudança descreve a base PaySim; não é uma previsão de tendência de fraude real.
+### Análise de sensibilidade dos limiares na validação
 
-### Sensibilidade de limiar — validação
-
-| Limiar | Alertas | Taxa de alertas | Precisão | Recall | Leitura |
+| Limiar | Alertas | Taxa de alertas | Precisão | Recall | Interpretação |
 |---:|---:|---:|---:|---:|---|
-| 1 | 83.820 | 43,851% | 1,4% | 100,0% | Cobertura observada máxima, com volume muito elevado. |
-| **2** | **3.718** | **1,945%** | **31,7%** | **100,0%** | **Referência principal do estudo.** |
+| 1 | 83.820 | 43,851% | 1,4% | 100,0% | Maior cobertura observada, com volume muito elevado de alertas. |
+| **2** | **3.718** | **1,945%** | **31,7%** | **100,0%** | **Limiar de referência principal do estudo.** |
 | 3 | 349 | 0,183% | 100,0% | 29,6% | Menor volume observado, mas deixa de capturar a maioria dos positivos. |
 
-A precisão de 100% e a ausência de falsos positivos no limiar 3 são resultados dessa amostra específica. Não garantem o mesmo comportamento em outros dados ou períodos.
+A precisão de 100% no limiar 3 é um resultado observado nessa amostra; não garante ausência de falsos positivos em outros períodos ou conjuntos de dados.
 
 ---
 
 ## 🤖 Comparação Exploratória — Regras e Regressão Logística
-
-O corte da regressão logística foi escolhido na validação para aproximar o volume de alertas do baseline com score ≥ 2. Na validação, ambos geraram 3.718 alertas; no teste exploratório, o volume do modelo mudou, pois o mesmo corte numérico foi aplicado a outra partição.
 
 | Período | Método | Alertas | Taxa de alertas | Precisão | Recall | F1 | AP | Falsos positivos | Falsos negativos |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -187,15 +197,15 @@ O corte da regressão logística foi escolhido na validação para aproximar o v
 | Teste exploratório | Regras (score ≥ 2) | 2.790 | 3,119% | 44,8% | 99,9% | 61,9% | 0,6137 | 1.539 | 1 |
 | Teste exploratório | Regressão logística | 2.298 | 2,569% | 35,5% | 65,2% | 46,0% | 0,5259 | 1.482 | 436 |
 
-Neste backtest, as regras tiveram recall maior que a regressão logística. Isso não demonstra superioridade geral das regras: o resultado depende da base sintética, das variáveis, do modelo, das partições e do corte utilizado.
+Neste backtest, o baseline de regras apresentou maior recall do que a regressão logística. Isso não demonstra superioridade geral das regras: os resultados dependem da base sintética, das variáveis, do modelo e da forma de seleção do limiar.
 
-**AP** corresponde a *Average Precision*, calculada com `average_precision_score`. Não deve ser interpretada como uma garantia de desempenho futuro.
+A métrica **AP** corresponde a *Average Precision*, calculada com `average_precision_score`.
 
 ---
 
-## 🧮 Simulação da Fila de Triagem
+## 🧮 Simulação da Fila Operacional
 
-A simulação usa a partição de validação e o limiar 2. A fila é uma hipótese de cenário, não um registro de alertas operacionais.
+A simulação utiliza a partição de validação e o limiar 2. Todos os parâmetros são hipóteses editáveis, não observações de uma operação real.
 
 ### Premissas do cenário-base
 
@@ -206,20 +216,17 @@ A simulação usa a partição de validação e o limiar 2. A fila é uma hipót
 | Chegadas | Distribuídas uniformemente dentro de cada `step` |
 | Prioridade | Score 3 = P1; score 2 = P2 |
 | Tempo de análise | Distribuição triangular hipotética por prioridade |
-| SLA hipotético | 15 minutos para P1 e 30 minutos para P2 |
-| Reprodutibilidade | Semente fixa 2026 |
-
-A base não contém horários intrastep, analistas, decisões ou tempos de atendimento. A distribuição de chegadas e os parâmetros de triagem são, portanto, hipóteses editáveis.
+| SLA | 15 minutos para P1 e 30 minutos para P2 |
+| Semente aleatória | 2026 |
 
 ### Resultados do cenário-base
 
-- **3.718 alertas** foram iniciados até o fim do horizonte;
-- **3.717 alertas** foram concluídos; um permanecia em análise;
-- Espera média estimada: **260,89 minutos**;
-- Espera mediana estimada: **257,69 minutos**;
-- Espera P90 estimada: **516,21 minutos**;
-- Alertas iniciados dentro do SLA hipotético: **20,41%**;
-- Utilização estimada: **89,29%**.
+- **3.718 alertas** foram iniciados até o fim do horizonte.
+- **3.717 alertas** foram concluídos; um permanecia em análise.
+- A espera média estimada foi de **260,89 minutos**.
+- A espera mediana estimada foi de **257,69 minutos** e o P90, **516,21 minutos**.
+- **20,41%** dos alertas iniciados começaram dentro do SLA hipotético.
+- A utilização estimada foi de **89,29%**.
 
 ### Sensibilidade à quantidade de analistas
 
@@ -229,79 +236,230 @@ A base não contém horários intrastep, analistas, decisões ou tempos de atend
 | 5 | 3.718 | 3.717 | 0 | 260,89 min | 516,21 min | 20,41% | 89,29% |
 | 10 | 3.718 | 3.717 | 0 | 33,51 min | 107,58 min | 67,99% | 44,65% |
 
-### Como interpretar a simulação
+> **Interpretação:** zero alertas ainda na fila não significa que todos começaram dentro do SLA. Um alerta pode ter sido iniciado depois do prazo hipotético e, ainda assim, concluído até o fim do horizonte simulado.
 
-No cenário-base, a espera estimada é elevada e apenas 20,41% dos alertas iniciados começariam dentro do SLA hipotético. Isso indica que **as premissas de capacidade do cenário não atendem bem à meta escolhida**.
-
-Zero alertas ainda na fila ao fim do horizonte **não significa que todos começaram dentro do SLA**. Casos iniciados depois do prazo podem ter sido concluídos antes do fim da simulação e ainda assim contar como atrasados.
-
-Os resultados não representam tempos, níveis de serviço ou capacidade observados em uma empresa. Também não constituem recomendação de contratação ou dimensionamento de equipe.
-
-Precisão e recall da fila são calculados separadamente, em comparação retrospectiva com os rótulos sintéticos PaySim. Não são KPIs de uma operação simulada.
+Os resultados são estimativas condicionadas às premissas de equipe, chegada, prioridade, tempo de análise e SLA. Não representam tempos observados, compromissos de serviço ou recomendação de dimensionamento.
 
 ---
 
-## 📈 KPIs e Disponibilidade de Dados
+## 🖥️ Dashboard Interativo
 
-| Indicador | O que representa | Disponibilidade neste estudo |
-|---|---|---|
-| Precisão | Proporção dos alertas que correspondem a fraude rotulada | Calculada retrospectivamente no PaySim |
-| Recall | Proporção das fraudes rotuladas capturadas pelos alertas | Calculado retrospectivamente no PaySim |
-| Falsos positivos e negativos | Divergências entre alerta e rótulo | Calculadas retrospectivamente no PaySim |
-| Volume e taxa de alertas | Quantidade e proporção de transações sinalizadas | Calculados no backtest |
-| AP | Métrica de ordenação/recuperação baseada nos scores | Calculada no backtest |
-| Espera e fila pendente | Estimativas condicionadas às premissas da simulação | Simuladas, não observadas |
-| Aderência ao SLA | Percentual que começa dentro da meta assumida | Simulada, não observada |
-| Tempo real até triagem | Tempo entre criação e início da análise | Não disponível na base |
-| Perdas financeiras ou evitadas | Impacto financeiro de uma fraude ou alerta | Não calculável com os dados disponíveis |
+O dashboard foi desenvolvido em **React e Vite** e apresenta uma visão executiva do baseline de regras. Ele permite consultar as métricas por período e por limiar, além de comunicar os limites do estudo e o fluxo conceitual de triagem.
 
-Para calcular KPIs operacionais reais, seriam necessários logs autorizados com horário de criação, início da análise, decisão, encaminhamento, encerramento, prioridade, equipe ou turno e estado do alerta em cada momento de acompanhamento.
+O painel não está conectado à base em tempo real. Os valores exibidos são resultados documentados do backtest exploratório.
+
+### Visão geral do painel
+
+O cabeçalho apresenta o contexto do estudo, a origem sintética dos dados e um aviso para interpretar os indicadores com cautela. Os controles permitem alternar entre validação e teste exploratório e selecionar um limiar.
+
+![Dashboard — visão geral](screenshots/01-dashboard-visao-geral.png)
+
+### Indicadores do baseline
+
+Os cartões executivos exibem:
+
+- transações no período;
+- alertas gerados;
+- taxa de alertas;
+- precisão;
+- recall.
+
+Os indicadores acompanham o período e o limiar selecionados.
+
+![Dashboard — indicadores do baseline](screenshots/02-dashboard-indicadores.png)
+
+### Precisão, recall e composição dos alertas
+
+O gráfico compara precisão e recall entre os limiares 1, 2 e 3. A composição dos alertas apresenta os positivos e falsos positivos conforme os rótulos do PaySim.
+
+“Falso positivo” é calculado retrospectivamente em relação ao rótulo sintético; não equivale a uma decisão de analista.
+
+![Dashboard — desempenho por limiar](screenshots/03-dashboard-desempenho.png)
+
+### Comparação dos limiares
+
+A tabela apresenta alertas, taxa de alertas, precisão, recall e falsos positivos para os três limiares na validação. O limiar 2 é destacado como referência principal, e os demais como análise de sensibilidade.
+
+![Dashboard — comparação dos limiares](screenshots/04-dashboard-comparacao-limiares.png)
+
+### Fluxo conceitual de triagem e governança
+
+O painel apresenta um fluxo conceitual em três etapas: sinalizar, revisar e monitorar. Também diferencia indicadores retrospectivos disponíveis na base de métricas operacionais que não podem ser calculadas sem logs reais.
+
+![Dashboard — fluxo de triagem e governança](screenshots/05-dashboard-triagem-governanca.png)
+
+### Escopo atual do dashboard
+
+O painel apresenta:
+
+- resultados do baseline de regras por período e limiar;
+- cartões de métricas e visualizações de desempenho;
+- fluxo conceitual de triagem;
+- indicadores disponíveis e indisponíveis;
+- avisos sobre dados sintéticos e limites de interpretação.
+
+O painel **não apresenta atualmente os resultados detalhados da regressão logística nem os valores numéricos da simulação da fila**. Esses resultados estão documentados nos notebooks e neste README.
 
 ---
 
-## 🧭 Método e Salvaguardas
+## 🧭 Como Executar o Projeto
 
-- O baseline soma até três sinais, gerando score de 0 a 3.
-- O percentil 95 do valor por tipo é calculado somente no treino.
-- `isFraud` é o rótulo e não entra nas regras de risco.
-- `isFlaggedFraud` é excluída por ser uma sinalização preexistente.
-- `newbalanceOrig` e `newbalanceDest` são excluídas por serem saldos posteriores à transação.
-- A regressão logística usa variáveis explicitamente selecionadas e exclui identificadores.
-- `step` é um índice temporal sintético, sem interpretação como dia ou mês.
-- A EDA examinou os rótulos de todos os períodos; por isso, o teste é exploratório, não cego nem independente.
-- Nenhum resultado deve ser apresentado como desempenho em produção ou impacto financeiro real.
+### 1. Instalar dependências de Python
 
-Para uma avaliação confirmatória, seria necessário reservar uma janela futura ainda não examinada e congelar previamente as variáveis, o método, o limiar e as métricas.
+A partir da raiz do projeto:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 2. Obter e posicionar a base
+
+Baixe a base PaySim pela página do Kaggle, confira os termos de uso e coloque o CSV original em `data/raw/`. Consulte `data/README.md`.
+
+### 3. Validar a localização da base
+
+```bash
+python -m src.data.prepare_data
+```
+
+### 4. Executar os notebooks
+
+```bash
+jupyter lab
+```
+
+Execute os notebooks na ordem:
+
+```text
+01_data_inspection_eda.ipynb
+02_fraud_patterns.ipynb
+03_risk_rules_evaluation.ipynb
+04_operational_queue_simulation.ipynb
+05_predictive_model_comparison.ipynb
+```
+
+O notebook 05 opera sobre uma base com milhões de registros e pode exigir recursos computacionais consideráveis.
+
+### 5. Executar o dashboard
+
+O dashboard é uma aplicação React/Vite. A partir da pasta `dashboard/`, instale as dependências e inicie o ambiente de desenvolvimento:
+
+```bash
+cd dashboard
+npm install
+npm run dev
+```
+
+Para gerar a versão de produção:
+
+```bash
+npm run build
+```
+
+Os comandos dependem da configuração presente em `dashboard/package.json`. Para publicar a aplicação, confira também a configuração de base path do Vite e os caminhos de carregamento dos arquivos estáticos.
 
 ---
 
-## 🗣️ Conclusão
+## 📁 Estrutura do Repositório
 
-O baseline de regras oferece uma forma simples e explicável de priorizar transações dentro deste estudo sintético. O limiar 2 foi usado como referência para organizar a análise; seus resultados mostram alta cobertura das fraudes rotuladas nas partições observadas, mas também um volume relevante de alertas que não correspondem a fraude rotulada.
+```text
+projeto-05-fraud-intelligence/
+├── README.md
+├── requirements.txt
+├── .gitignore
+├── data/
+│   ├── raw/                              # CSV original PaySim; não incluído
+│   ├── processed/                        # Resultados gerados localmente
+│   └── README.md                         # Fonte e instruções dos dados
+├── notebooks/
+│   ├── 01_data_inspection_eda.ipynb
+│   ├── 02_fraud_patterns.ipynb
+│   ├── 03_risk_rules_evaluation.ipynb
+│   ├── 04_operational_queue_simulation.ipynb
+│   └── 05_predictive_model_comparison.ipynb
+├── src/
+│   ├── data/
+│   │   └── prepare_data.py
+│   └── analysis/
+│       ├── risk_rules.py
+│       └── queue_simulation.py
+├── reports/
+│   ├── figures/
+│   └── intelligence_report.md
+├── dashboard/
+│   ├── public/
+│   │   └── ia-datia-logo.png
+│   ├── src/
+│   │   └── App.jsx
+│   └── ...
+└── screenshots/
+    ├── 01-dashboard-visao-geral.png
+    ├── 02-dashboard-indicadores.png
+    ├── 03-dashboard-desempenho.png
+    ├── 04-dashboard-comparacao-limiares.png
+    └── 05-dashboard-triagem-governanca.png
+```
 
-A comparação com a regressão logística e a simulação de fila acrescentam contexto sobre os trade-offs entre cobertura, volume de alertas e capacidade hipotética de atendimento. Ainda assim, os achados são exploratórios e dependem da base PaySim e das premissas definidas.
-
-**Conclusão permitida:** comparar regras, métricas retrospectivas e cenários hipotéticos de capacidade nesta base sintética.
-
-**Conclusão não permitida:** afirmar eficácia em operações reais, perdas evitadas, tempos de atendimento reais, cumprimento de SLA ou superioridade universal de um limiar ou modelo.
+A estrutura acima representa os principais arquivos do projeto. Ajuste os nomes ou caminhos conforme a organização final do repositório.
 
 ---
 
-## 🚀 Próximos Passos Metodológicos
+## 🛠️ Tecnologias Utilizadas
 
-1. Manter o limiar 2 como referência documentada, sem apresentá-lo como política aprovada.
-2. Preservar os limiares 1 e 3 como análises de sensibilidade.
-3. Ampliar a análise de sensibilidade das premissas de equipe, chegadas e tempos de serviço.
-4. Para uma avaliação preditiva confirmatória, reservar um período futuro não examinado.
-5. Só substituir indicadores simulados por KPIs reais quando houver logs operacionais autorizados e documentados.
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Matplotlib**
+- **Scikit-learn**
+- **Jupyter Notebook**
+- **React**
+- **Vite**
+- **JavaScript**
+- **HTML e CSS**
+- **Git e GitHub**
 
 ---
 
-## 📚 Fonte
+## ⚠️ Limitações e Uso Responsável
 
-PaySim — *Synthetic Financial Datasets for Fraud Detection*, disponibilizado no [Kaggle](https://www.kaggle.com/datasets/ealaxi/paysim1).
+- PaySim é uma base sintética e não contém transações reais.
+- `step` é um índice temporal sintético, sem interpretação como data de calendário.
+- As associações encontradas são descritivas; não demonstram causalidade.
+- A EDA examinou os rótulos de todos os períodos. Por isso, o teste cronológico é exploratório, não cego ou independente.
+- A base não contém decisões de analistas, encaminhamentos, tempos de triagem, pendências reais, SLAs observados ou perdas financeiras.
+- As métricas preditivas são retrospectivas em relação aos rótulos do PaySim.
+- Os indicadores operacionais da fila são estimativas condicionadas às premissas da simulação.
+- A comparação não comprova superioridade geral de regras ou modelo.
+- O projeto não estima perdas evitadas nem demonstra eficácia operacional.
 
-A base original não está incluída no projeto. Antes de redistribuir dados ou resultados derivados, consulte os termos de uso vigentes na fonte.
+Para uma avaliação confirmatória, seria necessário reservar uma janela futura ainda não examinada e definir previamente as variáveis, o método, o limiar e as métricas.
+
+---
+
+## 🚀 Próximos Passos
+
+- Adicionar capturas atualizadas do dashboard à pasta `screenshots/`.
+- Manter README, dashboard e resultados dos notebooks sincronizados.
+- Executar os notebooks em ambiente local e revisar os outputs antes da publicação.
+- Realizar análise de sensibilidade mais ampla das premissas da fila.
+- Considerar uma janela temporal futura realmente não examinada para uma avaliação confirmatória, caso haja dados adequados.
+- Incorporar métricas operacionais reais somente se houver acesso autorizado a logs e documentação da origem dos dados.
+
+---
+
+## 📄 Relatório Detalhado
+
+Consulte [`reports/intelligence_report.md`](reports/intelligence_report.md) para ver os resultados completos, as premissas da simulação, a comparação preditiva e as limitações metodológicas.
+
+---
+
+## 👤 Autor
+
+**Ivan Ajala**  
+Business Intelligence · Data Analytics · Data Science
+
+- **LinkedIn:** [Ivan Ajala](https://linkedin.com/in/ivan-ajala)
+- **GitHub:** [Ivan Ajala](https://github.com/ivan-ajala)
 
 ---
 

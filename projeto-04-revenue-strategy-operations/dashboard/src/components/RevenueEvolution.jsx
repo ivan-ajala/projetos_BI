@@ -30,8 +30,8 @@ function RevenueEvolution() {
     async function loadEvolutionData() {
       try {
         const [monthlyResponse, forecastResponse] = await Promise.all([
-          fetch('/data/monthly_revenue.csv'),
-          fetch('/data/revenue_forecast.csv'),
+          fetch(`${import.meta.env.BASE_URL}data/monthly_revenue.csv`),
+          fetch(`${import.meta.env.BASE_URL}data/revenue_forecast.csv`),
         ]);
 
         if (!monthlyResponse.ok) {

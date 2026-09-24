@@ -79,8 +79,8 @@ const RevenueForecast = () => {
   const fetchData = useCallback(async () => {
     try {
       const [historicalResponse, forecastResponse] = await Promise.all([
-        fetch("/data/monthly_revenue.csv"),
-        fetch("/data/revenue_forecast.csv"),
+        fetch(`${import.meta.env.BASE_URL}data/monthly_revenue.csv`),
+        fetch(`${import.meta.env.BASE_URL}data/revenue_forecast.csv`),
       ]);
 
       if (!historicalResponse.ok)

@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     async function loadDashboardSummary() {
       try {
-        const response = await fetch("/data/dashboard_summary.json");
+        const response = await fetch(`${import.meta.env.BASE_URL}data/dashboard_summary.json`);
 
         if (!response.ok) {
           throw new Error(
@@ -115,7 +115,7 @@ function DashboardHeader({ summary }) {
     <header className="dashboard-header">
       <div className="header-brand">
         <img
-          src="/ia-datia-logo.png"
+          src={`${import.meta.env.BASE_URL}ia-datia-logo.png`}
           alt="Logo datIA"
           className="header-logo"
         />

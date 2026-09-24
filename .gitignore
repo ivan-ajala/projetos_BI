@@ -368,3 +368,19 @@ projeto-04-revenue-strategy-operations/src/
 
 # Documentação de controle pessoal do Projeto 4
 /projeto-04-revenue-strategy-operations/docs/
+
+# documentos e pastas ignoradas no projeto 5
+# Dados
+projeto-05-fraud-intelligence/data/*
+
+# Notas pessoais
+projeto-05-fraud-intelligence/docs/*
+
+# Node / dashboard
+projeto-05-fraud-intelligence/dashboard/node_modules/*
+projeto-05-fraud-intelligence/dashboard/dist/*
+
+
+
+
+

@@ -27,6 +27,7 @@ O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dado
 | **02** | SECOM Quality Analytics                                     | Python, Pandas, Scikit-learn, React, Vite                         | Controle de Qualidade, Sensores Industriais, Previsão de Falhas   | [Ver Projeto](./projeto-02-quality-analytics-secom/README.md) |
 | **03** | Project Portfolio Management Analytics | Python, Pandas, Scikit-learn, React, Vite | Risco de Atraso/Custo, Clusterização de Desempenho de Projetos | [Ver Projeto](./projeto-03-project-portfolio-management/README.md) |
 | **04** | Revenue Strategy & Operations Analytics | Python, Pandas, Modelagem de Séries Temporais, React, Vite, Recharts | Previsão de Receita, Segmentação de Clientes (RFV/LTV), Reconciliação Financeira | [Ver Projeto](./projeto-04-revenue-strategy-operations/README.md) |
+| **05** | Fraud Intelligence — Risk Rules & Predictive Comparison | Python, Pandas, Scikit-learn, React, Vite | Priorização de Alertas, Regras Explicáveis de Risco, Comparação Preditiva, Simulação de Triagem | [Ver Projeto](./projeto-05-fraud-intelligence/README.md) |
 
 ---
 
@@ -36,7 +37,7 @@ O foco é demonstrar, de forma prática e aplicada, minhas habilidades em **dado
 |------------------|-----------------------------------------------------------|
 | **Linguagens**   | Python, SQL, JavaScript                                    |
 | **ETL & Dados**  | Pandas, NumPy, Power Query                                |
-| **Machine Learning** | Scikit-learn, Random Forest, Avaliação de Modelos      |
+| **Machine Learning** | Scikit-learn, Random Forest, Regressão Logística, Avaliação de Modelos |
 | **Bancos**       | SQLite, MySQL                                             |
 | **Visualização** | Tableau, Power BI, Matplotlib                             |
 | **Desenvolvimento Web** | React, Vite, HTML, CSS                              |
@@ -62,7 +63,8 @@ Onde atualmente:
 - o **Projeto 01** está focado em **visualização e análise de rentabilidade comercial**;
 - o **Projeto 02** aplica **análise exploratória, modelagem preditiva e dashboard web** sobre dados de qualidade industrial;
 - o **Projeto 03** trabalha **risco de portfólio de projetos e clusterização de desempenho**;
-- e o **Projeto 04** traz **modelagem de previsão de receita, segmentação de clientes e métricas executivas**.
+- o **Projeto 04** traz **modelagem de previsão de receita, segmentação de clientes e métricas executivas**;
+- e o **Projeto 05** explora **regras explicáveis de risco, comparação com modelo preditivo e simulação de triagem** aplicadas a um estudo de caso de fraude com dados sintéticos.
 
 ---
 
@@ -97,8 +99,6 @@ Para explorar o projeto:
    - Ranking de importância das variáveis
    - Dashboard web interativo (React + Vite)
    - Capturas de tela das principais páginas
-
----
 
 ---
 
@@ -138,6 +138,27 @@ Para explorar o projeto:
 
 ---
 
+## 🛡️ Projeto 05 – Como acessar o Fraud Intelligence
+
+O Projeto 05 utiliza a base sintética **PaySim**, aplicando um baseline explicável de regras de risco, comparação exploratória com regressão logística e uma simulação de fila de triagem, apresentados em um dashboard demonstrativo.
+
+Para explorar o projeto:
+
+1. Acesse o README específico do projeto:
+   👉 `./projeto-05-fraud-intelligence/README.md`
+
+2. Lá você encontrará:
+   - Pipeline documentado em notebooks (inspeção/EDA, padrões de fraude, avaliação das regras, simulação de fila, comparação exploratória com regressão logística)
+   - Baseline de regras com score de 0 a 3 e limiar 2 como referência principal
+   - Análise de sensibilidade dos limiares 1 e 3, com trade-offs entre cobertura e volume de alertas
+   - Comparação exploratória entre regras e regressão logística, sob volume de referência equivalente
+   - Simulação de fila de triagem com premissas documentadas de equipe, SLA e tempos de análise
+   - Dashboard demonstrativo (React + Vite) com resumo executivo, desempenho, fluxo de triagem e indicadores
+   - Capturas de tela das principais páginas
+   - Relatório completo em `reports/intelligence_report.md`, com explicação detalhada do conceito de limiar
+
+---
+
 ## 💼 Metodologia de Trabalho em BI, Data Analytics & Data Science
 
 Alguns princípios que sigo na construção dos projetos:
@@ -158,7 +179,7 @@ Alguns princípios que sigo na construção dos projetos:
 
 ---
 
-Este repositório é um portfólio em constante evolução, com novos projetos sendo adicionados conforme desenvolvo estudos de caso em diferentes domínios (vendas, finanças, qualidade industrial, comportamento de clientes, etc.).
+Este repositório é um portfólio em constante evolução, com novos projetos sendo adicionados conforme desenvolvo estudos de caso em diferentes domínios (vendas, finanças, qualidade industrial, comportamento de clientes, prevenção a fraudes, etc.).
 
 ---
 
